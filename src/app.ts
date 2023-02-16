@@ -17,6 +17,7 @@ class TrainingUnitMainExercise {
     }   
 }
 
+// elaborate on load from here
 class AccesoryExercise {
 
     accesory: string;
@@ -30,6 +31,17 @@ class AccesoryExercise {
 
 class GeneralFitness {
 
+    activity: string;
+    load: num;
+
+    constructor(activity:string, load:num) {
+        this.activity = activity, 
+        this.load = load 
+    }
+}
+
+class ActiveRecovery {
+    
     activity: string;
     load: num;
 
@@ -96,111 +108,111 @@ let n: num = 0.86
 
 let repMax = 100
 
-
-function lockAndLoad(loadIntensity: number[],sets:number,reps:number) {
-
+// program should provide support to 7 sets and 12 reps in basic setting
+// 7 = 3 + 2 + 2 
+// 6 = 2 + 2 + 2
+// 5 = 2 + 2 + 1
+// 4 = 2 + 2
+// 3 + 2 + 1
+// 2 = 1 + 1
+// 1 = 1
+function lockAndLoad(loadIntensity: number[], sets: number, reps: number) {
         //build logic 4 knowing when to go up in reps
         let load =  loadIntensity.map((element: number) => {
-            if (sets <= 5 && reps === 5) {
-                // you could check that if sets % 2 === 0
-                if(element !== loadIntensity[0])
-                { 
-                    return  [`${element} kg`, 1, reps]  
-                }
-                else 
-                {  
-                    return [`${element} kg`, 2,reps]
-                }};
-                // logic so load behaves differently with different load
-            if ( sets <= 7 && reps === 3 || sets <= 7 && reps === 2) {
-                if (sets  % 2 === 0) {
-                    if (sets <= 5) {
-                        if(element !== loadIntensity[0]) {
-                            return [`${element} kg`, 2,reps]
-                        }
-                        else { 
-                            return [`${element} kg`, 1,reps]}
+            if (sets == 7) {
+                    if (element === loadIntensity[0])
+                    { 
+                        return  [`${element} kg`, 3, reps]  
                     }
-                    if (sets <= 3) {
-                        if(element !== loadIntensity[0] ) {
-                            return [`${element} kg`, 1,reps]
-                        }
-                        else { return [`${element} kg`, 2,reps]
-                        }
-                   }
-                else{   
-
-                // if(element !== loadIntensity[0])
-                //     {   return [`${element} kg`, 1, reps] 
-                // }else{
-                //     return [`${element} kg`, 2, reps] 
-                // 
-                }}
-               
-            } 
-            return;
-        });
+                    if(element === loadIntensity[1])
+                    {  
+                        return [`${element} kg`, 2, reps]
+                    }
+                    else {
+                        return [`${element} kg`, 1, reps]
+                    }};
+            if (sets == 6) {
+                return [`${element} kg`, 2, reps]
+            }
+            if (sets == 5) {
+                if (element !== loadIntensity[2]) {
+                return [`${element} kg`, 2, reps]
+                }
+                else {
+                    return [`${element} kg`, 1, reps]
+                }
+            };
+            if (sets == 4) {
+                if (element !== loadIntensity[0]) {
+                    return [`${element} kg`, 1, reps]
+                }
+                else {
+                return [`${element} kg`, 2, reps]
+                }
+            };
+            if (sets == 3) {
+                return [`${element} kg`, 1, reps]
+            };
+            return;  
+            })
+        if (sets === 2 || sets === 1) {
+            return [` Choose from ${loadIntensity[0]}, ${loadIntensity[1]}, ${loadIntensity[2]} kg and do ${sets} of ${reps}`]
+        }
+        else{
+       
         return load;
+        }
 };
-                
-            
-          
-    // if (loadIntensity.length === 4){}
-    // if (loadIntensity.length === 3){
 
-    // }
-
-
-console.log(lockAndLoad([repMax * 0.8 ,repMax * 0.825, repMax * 0.85, repMax * 0.875],5,5))
 console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],7,3))
-console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92,],7,3))
+console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],6,3))
+console.log(lockAndLoad([repMax * 0.8 ,repMax * 0.825, repMax * 0.85],5,5))
+
+console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],4,3))
+console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],3,3))
+console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],2,3))
+
 
 
 const progress4Strength = (mainExercise: string, repMax: number, int80plus :boolean, int88plus : boolean, int95plus: boolean) :{} => {
     // this needs to be extended
-    // load will always represent intensity 
+
     if (int80plus == true && int88plus == false && int95plus == false) {
 
-        load= lockAndLoad([repMax * 0.8 ,repMax * 0.825, repMax * 0.85, repMax * 0.875],5,5)
+        load = lockAndLoad([repMax * 0.8 ,repMax * 0.825, repMax * 0.85],5,5)
         return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
     }
     if (int80plus == false && int88plus == true && int95plus == false) {
 
-        load = lockAndLoad([repMax * 0.88,repMax * 0.90],4,3)
+        load = lockAndLoad([repMax * 0.875 ,repMax * 0.9,repMax * 0.925],6,3)
         return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
     }
     if (int80plus == false && int88plus == false && int95plus == true) {
         // u can create sick logick here mate , believe in yourself ! % random creator
-        sets = 6;
-        reps = 2;
-        intensity = [repMax * 0.93, repMax * 0.94, repMax * 0.95];
+        
+        load = lockAndLoad([repMax * 0.90, repMax * 0.925, repMax * 0.95],7,2);
         return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
     }
     return newTrainingUnit;
 };
 
-const progress4Volume = (mainExercise: string, repMax: number, int65plus: boolean, int75plus: boolean, int85plus: boolean) => {
-    // mess around reps in this : )))
+const progress4Volume = (mainExercise: string, repMax: number, int65plus: boolean, int70plus: boolean, int75plus: boolean) => {
+    // These are default !!
 
-    if (int65plus == true && int75plus == false && int85plus == false) {
+    if (int65plus == true && int70plus == false && int75plus == false) {
 
-        // load: number,number[],{}[]|{}|
-        sets = 3;
-        reps = 12;
-        //65 - 67,5 - 70 0 72,5
-        intensity = repMax * 0.65;
+        load = lockAndLoad([repMax * 0.65, repMax * 0.6750, repMax * 0.70],3,12);
         return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
     }
-    if (int65plus == false && int75plus == true && int85plus == false) {
-        sets = 3;
-        reps = 10;
-        intensity = repMax * 0.75;
+    if (int65plus == false && int70plus == true && int75plus == false) {
+      
+        load = lockAndLoad([repMax * 0.7, repMax * 0.7250, repMax * 0.75],3,10)
         return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
     }
-    if (int65plus == false && int75plus == false && int85plus == true) {
+    if (int65plus == false && int70plus == false && int75plus == true) {
         sets = 3;
         reps = 8;
-        intensity = repMax * 0.85;
+        load = lockAndLoad([repMax * 0.75, repMax * 0.7750, repMax * 0.8],3,8)
         return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
     }
     return newTrainingUnit;
