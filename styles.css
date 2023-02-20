@@ -1,0 +1,18 @@
+.main {
+    font-size: 1rem;
+    padding: 15px;
+    margin: 20px;
+}
+.form-group {
+    text-decoration: solid; 
+}
+
+.container {
+    padding: 10px;
+    margin: 5px;
+}
+
+.table {
+    padding: 30px;
+    margin: 30px;
+}

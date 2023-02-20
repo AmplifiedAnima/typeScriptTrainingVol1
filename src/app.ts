@@ -6,9 +6,9 @@ type num = number|number[]|[number]|[number[]]|{}|{}[]|[{}];
 // building block for training unit
 
 
-class TrainingUnitMainExercise {
+class MainExercise {
 
-    mainExercise: string;
+    mainExercise: string| string[]
     load: num;
    
     constructor(mainExercise: string, load: num) {
@@ -16,11 +16,12 @@ class TrainingUnitMainExercise {
         this.load = load;
     }   
 }
+// set types of exercises Bilateral/Unilateral
 
 // elaborate on load from here
 class AccesoryExercise {
 
-    accesory: string;
+    accesory: string | string[];
     load: num;
 
     constructor(accesory:string, load:num) {
@@ -29,68 +30,140 @@ class AccesoryExercise {
     }
 } 
 
-class GeneralFitness {
+class MetabolicStress {
 
-    activity: string;
-    load: num;
+    activity: string|string[];
+    metabolicLoad: num;
+    // duration: num 
+    // heartrate: num
 
-    constructor(activity:string, load:num) {
+    public constructor(activity: string, metabolicLoad: num) {
         this.activity = activity, 
-        this.load = load 
+        this.metabolicLoad = metabolicLoad
     }
 }
-
-class ActiveRecovery {
-    
-    activity: string;
-    load: num;
-
-    constructor(activity:string, load:num) {
-        this.activity = activity, 
-        this.load = load 
-    }
-}
-
-
+ 
 class TrainingUnit {
 
-    mainExercise: {};
-    accesories: {} | {}[]
+    mainExercise: num;
+    load: num; 
+    accesories: num;
+    accesoriesLoad: num;
+    metabolicStress: num;
 
-    constructor() {
-        this.mainExercise = TrainingUnitMainExercise;
+    constructor(accesoriesLoad: num) {
+        this.mainExercise = MainExercise;
+        this.load = load;
         this.accesories = AccesoryExercise;
+        this.accesoriesLoad = accesoriesLoad;
+        this.metabolicStress = MetabolicStress;
+    
     }
 }
 
 // This has to be learned and improved upon 
-const form4Load = document.getElementById('CHAD') as HTMLFormElement | null;
-const button =  document.querySelector('button') as HTMLButtonElement;
-const reps4Load = document.querySelector('#reps') as HTMLInputElement | null;
-const weight4Load = document.querySelector<HTMLInputElement>('#weight');
-const loadEstimate = document.getElementById('kuku') as HTMLElement| null;
+const form4Load4: HTMLElement | null= document.getElementById('MainLoad');
+
+const reps4LoadSquat: HTMLInputElement | null = document.querySelector('#repsSquat') ;
+const intensity4Squat: HTMLInputElement | null = document.querySelector('#intensitySquat');
+
+const reps4Deadlift: HTMLInputElement | null = document.querySelector('#repsDeadlift') ;
+const intensity4Deadlift: HTMLInputElement | null = document.querySelector('#intensityDeadlift');
+
+const reps4Bench: HTMLInputElement | null = document.querySelector('#repsBench') ;
+const intensity4Bench: HTMLInputElement | null = document.querySelector('#intensityBench')
+
+const button: HTMLButtonElement | null =  document.querySelector('button');
+const loadEstimateSquat: HTMLElement | null = document.getElementById('LoadEstimate_Squat') 
+const loadEstimateDeadlift:  HTMLElement | null = document.getElementById('LoadEstimate_Deadlift') 
+const loadEstimateBench: HTMLElement | null = document.getElementById('LoadEstimate_Bench')
+
+const dataFromFunc = document.getElementById('kuku') as HTMLTableElement | null
 
 
-
-form4Load?.addEventListener('submit', (e)=> {
+form4Load4?.addEventListener('submit', (e)=> {
     e.preventDefault()
-    let z: number= loadTheLoad(Number(reps4Load?.value), Number(weight4Load?.value))
 
-    //let outPut = document.createElement('li'); 
-    if (weight4Load?.value == '' && reps4Load?.value == '' || weight4Load?.value == null && reps4Load?.value == null) 
+    const squatLoad: number = loadTheLoad(Math.round(Number(reps4LoadSquat?.value)), Number(intensity4Squat?.value))
+    const deadliftLoad: number = loadTheLoad(Math.round(Number(reps4Deadlift?.value)), Number(intensity4Deadlift?.value))
+    const benchLoad: number = loadTheLoad(Math.round(Number(reps4Bench?.value) ), Number(intensity4Bench?.value))
+    
+    const repMax4Squat = squatLoad.toString()
+    const repMax4Deadlift = deadliftLoad.toString()
+    const repMax4Bench = benchLoad.toString()
+
+    const array:  any = basicOverload(Math.round(squatLoad),Math.round(deadliftLoad),Math.round(benchLoad))
+    if (
+        intensity4Squat?.value == '' && reps4LoadSquat?.value == ''
+        && intensity4Deadlift?.value == '' &&  reps4Deadlift?.value == '' 
+        && intensity4Bench?.value == '' && reps4Bench?.value == ''
+    ) 
+    // if (intensity4Deadlift?.value === '' && reps4Deadlift?.value === ''|| Number(reps4Deadlift?.value))
+
+    console.log(array)
    
-    console.log(loadTheLoad(Number(reps4Load?.value), Number(weight4Load?.value)))
-    console.log(z.toString())
+    const Projection: any = array.map((element: any, index: number ) => {
+        let table: string = ''
+        table +=`  
+                <tr>
+                <th><h4>${index+1}. Training unit</h4></th>
+                </tr>
+                <tr>
+                <td><h4> Main exercise : ${element.mainExercise}<h4></td>
+                </tr>
+                <td><h5>Intensity <h5></td>
+                <td><h5>Sets <h5></td>
+                <td></td>
+                <td><h5>Reps <h5></td>
+                <tr>
+                <td><h5>${Math.round(element.load[0][0])} kg </h5></td>
+                <td><h5>${element.load[0][1]}</h5></td>
+                <td></td>
+                <td><h5>${element.load[0][2]}</h5></td>
+                </tr>
+                <tr>
+                <td><h5>${Math.round(element.load[1][0])} kg </h5></td>
+                <td><h5>${element.load[1][1]}</h5></td>
+                <td></td>
+                <td><h5>${element.load[1][2]}</h5></td>
+                </tr>
+                <tr>
+                <td><h5>${Math.round(element.load[2][0])} kg </h5></td>
+                <td><h5>${element.load[2][1]}</h5></td>
+                <td></td>
+                <td><h5>${element.load[2][2]}</h5></td>
+                </tr>
+                <tr>
+                <td><h4> Accesory I <h4></td>
+                </tr>
+                <tr>
+                <td><h4> Accesory II <h4></td>
+                </tr>
+                `
+        return table;
+    })
+    dataFromFunc!.innerHTML = Projection
 
-})
+
+ 
+    // loadEstimateSquat!.innerText = repMax4Squat
+    // loadEstimateBench!.innerText = repMax4Bench
+    // loadEstimateDeadlift!.innerText = repMax4Deadlift
+
+    console.log(repMax4Squat,repMax4Deadlift,repMax4Bench)
+    console.log(array)
+
+    }
+)
 
 
 function handleClick(this: HTMLElement) {
-    console.log("Clicked!"); } 
+    console.log("Clicked!"); 
+} 
 
-    
 const loadTheLoad = (repetitions: number, intensity: number) => {
-    const repMax: number = repetitions * intensity * 0.033 + intensity;
+    const repMax:
+     number = repetitions * intensity * 0.033 + intensity;
     return repMax;
 };
 
@@ -98,134 +171,101 @@ const loadTheLoad = (repetitions: number, intensity: number) => {
 // static base ready to be morphed
 
 let load: num;
-let intensity:num;
-let testooo : number[] ;
-let sets;
-let reps;
-let newTrainingUnit:{};
-let n: num = 0.86
+let intensity: num;
+let newTrainingUnit: MainExercise;
 
-
-let repMax = 100
-
-// program should provide support to 7 sets and 12 reps in basic setting
-// 7 = 3 + 2 + 2 
-// 6 = 2 + 2 + 2
-// 5 = 2 + 2 + 1
-// 4 = 2 + 2
-// 3 + 2 + 1
-// 2 = 1 + 1
-// 1 = 1
-function lockAndLoad(loadIntensity: number[], sets: number, reps: number) {
+const lockAndLoad = (loadIntensity: number[], sets: number, reps: number) => {
         //build logic 4 knowing when to go up in reps
-        let load =  loadIntensity.map((element: number) => {
-            if (sets == 7) {
-                    if (element === loadIntensity[0])
-                    { 
-                        return  [`${element} kg`, 3, reps]  
-                    }
-                    if(element === loadIntensity[1])
-                    {  
-                        return [`${element} kg`, 2, reps]
-                    }
-                    else {
-                        return [`${element} kg`, 1, reps]
-                    }};
-            if (sets == 6) {
-                return [`${element} kg`, 2, reps]
+    let load =  loadIntensity.map((element: number) => {
+
+        if (sets == 7) { 
+            if (element === loadIntensity[0]) { 
+                return  [element, 3, reps]
             }
-            if (sets == 5) {
-                if (element !== loadIntensity[2]) {
-                return [`${element} kg`, 2, reps]
-                }
-                else {
-                    return [`${element} kg`, 1, reps]
-                }
-            };
-            if (sets == 4) {
-                if (element !== loadIntensity[0]) {
-                    return [`${element} kg`, 1, reps]
-                }
-                else {
-                return [`${element} kg`, 2, reps]
-                }
-            };
-            if (sets == 3) {
-                return [`${element} kg`, 1, reps]
-            };
-            return;  
-            })
-        if (sets === 2 || sets === 1) {
-            return [` Choose from ${loadIntensity[0]}, ${loadIntensity[1]}, ${loadIntensity[2]} kg and do ${sets} of ${reps}`]
+            if(element === loadIntensity[1]) {  
+                return [element, 2, reps]
+            } 
+            else { 
+                return [element, 1, reps]
+            }
         }
-        else{
-       
-        return load;
+        if (sets == 6) {
+                return [element, 2, reps] 
         }
-};
+        if (sets == 5) {
+            if (element !== loadIntensity[2]) {
+                return [element, 2, reps];
+            } 
+            else {
+                return [element, 1, reps];
+            }
+        }
+        if (sets == 4) {
+            if (element !== loadIntensity[0]) {
+                return [element, 1, reps];
+            } 
+            else { 
+                return [element, 2, reps];
+            }
+        }
+        if (sets == 3) {
+            return [element, 1, reps];
+        }
+            return; 
+    })
+        if (sets === 2 || sets === 1) { 
+            return [` Choose from ${loadIntensity.filter((e) => {return e} )} kg and do sets: ${sets} of ${reps} reps.`];
+        }
+        else {
+            return load;
+    }
+}; 
 
-console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],7,3))
-console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],6,3))
-console.log(lockAndLoad([repMax * 0.8 ,repMax * 0.825, repMax * 0.85],5,5))
 
-console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],4,3))
-console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],3,3))
-console.log(lockAndLoad([repMax * 0.88,repMax * 0.90,repMax * 0.92],2,3))
-
-
-
-const progress4Strength = (mainExercise: string, repMax: number, int80plus :boolean, int88plus : boolean, int95plus: boolean) :{} => {
+const progress4Strength = (mainExercise: string, repMax: number, int80plus :boolean, int88plus : boolean, int95plus: boolean) : MainExercise=> {
     // this needs to be extended
-
     if (int80plus == true && int88plus == false && int95plus == false) {
 
         load = lockAndLoad([repMax * 0.8 ,repMax * 0.825, repMax * 0.85],5,5)
-        return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
+        return newTrainingUnit = new MainExercise(mainExercise, load);
     }
     if (int80plus == false && int88plus == true && int95plus == false) {
 
-        load = lockAndLoad([repMax * 0.875 ,repMax * 0.9,repMax * 0.925],6,3)
-        return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
+        load = lockAndLoad([repMax * 0.875 ,repMax * 0.9, repMax * 0.925],6,3)
+        return newTrainingUnit = new MainExercise(mainExercise, load);
     }
     if (int80plus == false && int88plus == false && int95plus == true) {
-        // u can create sick logick here mate , believe in yourself ! % random creator
-        
+    
         load = lockAndLoad([repMax * 0.90, repMax * 0.925, repMax * 0.95],7,2);
-        return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
+        return newTrainingUnit = new MainExercise(mainExercise, load);
     }
     return newTrainingUnit;
 };
 
 const progress4Volume = (mainExercise: string, repMax: number, int65plus: boolean, int70plus: boolean, int75plus: boolean) => {
     // These are default !!
-
     if (int65plus == true && int70plus == false && int75plus == false) {
 
         load = lockAndLoad([repMax * 0.65, repMax * 0.6750, repMax * 0.70],3,12);
-        return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
+        return newTrainingUnit = new MainExercise(mainExercise, load);
     }
     if (int65plus == false && int70plus == true && int75plus == false) {
-      
+
         load = lockAndLoad([repMax * 0.7, repMax * 0.7250, repMax * 0.75],3,10)
-        return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
+        return newTrainingUnit = new MainExercise(mainExercise, load);
     }
     if (int65plus == false && int70plus == false && int75plus == true) {
-        sets = 3;
-        reps = 8;
+
         load = lockAndLoad([repMax * 0.75, repMax * 0.7750, repMax * 0.8],3,8)
-        return newTrainingUnit = new TrainingUnitMainExercise(mainExercise, load);
+        return newTrainingUnit = new MainExercise(mainExercise, load);
     }
     return newTrainingUnit;
 };
-// loading capacity 4 freefall training plan
-// vol is 65%,75%, 85% 
-// str is 88% 92% 95%
 
-const basicOverload = (Squat: number, Bench: number, Deadlift: number): {}[] => {
+const basicOverload = (Squat: number, Bench: number, Deadlift: number,  ): {}[] => {
 
     let overLoadedArray = [  
     // litle to medium/optimal load intensities/volume
-
         progress4Strength('Squat', Squat, true, false, false),
         progress4Volume('Bench', Bench, true, false, false),
         progress4Strength('Deadlift', Deadlift, true, false, false),
@@ -236,10 +276,8 @@ const basicOverload = (Squat: number, Bench: number, Deadlift: number): {}[] => 
      
         progress4Strength('Squat', Squat, false, true ,false),
         progress4Volume('Bench', Bench, false, true, false),
-        progress4Strength('Deadlift', Deadlift, true, false, false),
-
+        progress4Strength('Deadlift', Deadlift, false, true, false),
 // middle to overload tier / hard/optimal
-
         progress4Volume('Squat', Squat, false , false, true),
         progress4Strength('Bench', Bench, false, true, false),
         progress4Volume('Deadlift', Deadlift, false, false, true),
@@ -252,56 +290,74 @@ const basicOverload = (Squat: number, Bench: number, Deadlift: number): {}[] => 
         progress4Strength('Bench', Bench, false, false, true),
         progress4Volume('Deadlift', Deadlift,  true, false, false)]
 
-        return overLoadedArray;
-   }
+    return overLoadedArray;
+};
 
 
-const chooseWhichFirst = (overload:{}[], choice: string) => {
+// const accesoryOverload = (mainOverload: num , accesories: num) => {
+    
+// }
+
+const chooseWhichFirst = (overload:{}[]|[], choice: string) => {
 
     if (choice === 'smoothParts') {
         return overload.splice(9)
     }
-
     if (choice === 'hardParts') {
        return overload.splice(0);
     };
     return
-
-
 }
-// what function returns
-const z = basicOverload(95,125,130)
 
-let usedUnits: any = []
+let z:any = basicOverload(95,125,130)
 
 
-const freefallProgressionSingle = (load: {}[]|[]) => {
-// iterate one unit sesion at a time - element(mainexercise) !== next element / frozen until array isnt dividible by 3
-
-    return load.splice(1);
-}
+let usedUnits: {}[] = [];
+let currentUnit: {}[]|{} = [];
 //progression of freeFall plan 
 const freeFallProgression = (load: {}[]|[]) => {
-        //tripletFall - iteration of 3 units binded together
-        return load.splice(3);
-        //duoFall - iteration of 2 units together
-
-    }
-        
-    console.log(z)
-
-// shuffle so no element repeats itself
-// has to be worked on 
-const playDice = (arr: {}[]|[]) => { 
-
-    for (let i = arr.length - 1; i > 0; i--) {
-        let j =  Math.floor(Math.random() * Math.floor(arr.length - 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
+    usedUnits.push(load[0])
+    let shiftingArray = load.shift();
+    return shiftingArray;
 }
 
-console.log(playDice(z))
+freeFallProgression(z)
+console.log(usedUnits)
+console.log(z)
+
+
+let paidTwiceArray: any = []
+let paidTwiceArray1: any = []
+let paidTwiceArray2: any = []
+
+// shuffle so no element repeats itself
+// playDice needs to check if next 2 elements don't have the same name
+const playDice = (arr:any) => { 
+ 
+    for (let i = arr.length - 1; i > 0; i--) {
+        let j =  Math.floor(Math.random() * Math.floor(arr.length - 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];   
+    
+    }
+    return arr;
+}
+
+// const playTwice = (arr: any|{}[]) => {
+   
+//     arr.filter((element: any,index: number) => { 
+//         if (element(index).mainExercise !== element(index +1).mainExercise) {
+//             paidTwiceArray.push(element)
+//         } else {
+//             paidTwiceArray2.push(element)
+//         }
+//     })
+    
+//     console.log(paidTwiceArray,paidTwiceArray2);
+// }
+
+let nonrepeating: {}[] = []
+playDice(z)
+
 
 const trackTheVolume = (overload: {}[]) => {
     let nag: number[] = []
@@ -328,14 +384,3 @@ const chooseFromIntensity = (overload: {}[]) => {
     });
     return highestInt;
 }
-
-
-
-// const hitThePr = (overload: {}[]) => {
-
-// }
-
-// console.log(mixLoadVolumeAndStrength(z,'smoothParts'))
-// console.log(mixLoadVolumeAndStrength(z,'hardParts'))
-// console.log(chooseFromVolume(z))
-// console.log(chooseFromIntensity(z))
