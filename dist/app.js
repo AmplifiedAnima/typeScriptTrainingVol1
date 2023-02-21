@@ -5,25 +5,31 @@ class MainExercise {
         this.load = load;
     }
 }
-class AccesoryExercise {
-    constructor(accesory, load) {
-        this.accesory = accesory,
-            this.load = load;
-    }
-}
 class MetabolicStress {
     constructor(activity, metabolicLoad) {
         this.activity = activity,
             this.metabolicLoad = metabolicLoad;
     }
 }
-class TrainingUnit {
-    constructor(accesoriesLoad) {
-        this.mainExercise = MainExercise;
-        this.load = load;
-        this.accesories = AccesoryExercise;
-        this.accesoriesLoad = accesoriesLoad;
-        this.metabolicStress = MetabolicStress;
+class MuscleGroups {
+    constructor(calves, hamstrings, quadriceps, glutes, abdominals, lowerback, chest, upperback, shoulders, biceps, triceps) {
+        this.calves = calves;
+        this.hamstrings = hamstrings;
+        this.quadriceps = quadriceps;
+        this.glutes = glutes;
+        this.abdominals = abdominals;
+        this.lowerback = lowerback;
+        this.chest = chest;
+        this.upperback = upperback;
+        this.shoulders = shoulders;
+        this.biceps = biceps;
+        this.triceps = triceps;
+    }
+}
+class AccesoryExercise {
+    constructor(accesory, load) {
+        this.accesory = accesory,
+            this.load = load;
     }
 }
 const form4Load4 = document.getElementById('MainLoad');
@@ -84,9 +90,11 @@ form4Load4 === null || form4Load4 === void 0 ? void 0 : form4Load4.addEventListe
                 </tr>
                 <tr>
                 <td><h4> Accesory I <h4></td>
+                <td></td>
                 </tr>
                 <tr>
                 <td><h4> Accesory II <h4></td>
+                <td></td>
                 </tr>
                 `;
         return table;
@@ -102,9 +110,6 @@ const loadTheLoad = (repetitions, intensity) => {
     const repMax = repetitions * intensity * 0.033 + intensity;
     return repMax;
 };
-let load;
-let intensity;
-let newTrainingUnit;
 const lockAndLoad = (loadIntensity, sets, reps) => {
     let load = loadIntensity.map((element) => {
         if (sets == 7) {
@@ -149,35 +154,38 @@ const lockAndLoad = (loadIntensity, sets, reps) => {
         return load;
     }
 };
+let load;
+let intensity;
+let newMainExercise;
 const progress4Strength = (mainExercise, repMax, int80plus, int88plus, int95plus) => {
     if (int80plus == true && int88plus == false && int95plus == false) {
         load = lockAndLoad([repMax * 0.8, repMax * 0.825, repMax * 0.85], 5, 5);
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
     if (int80plus == false && int88plus == true && int95plus == false) {
         load = lockAndLoad([repMax * 0.875, repMax * 0.9, repMax * 0.925], 6, 3);
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
     if (int80plus == false && int88plus == false && int95plus == true) {
         load = lockAndLoad([repMax * 0.90, repMax * 0.925, repMax * 0.95], 7, 2);
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
-    return newTrainingUnit;
+    return newMainExercise;
 };
 const progress4Volume = (mainExercise, repMax, int65plus, int70plus, int75plus) => {
     if (int65plus == true && int70plus == false && int75plus == false) {
         load = lockAndLoad([repMax * 0.65, repMax * 0.6750, repMax * 0.70], 3, 12);
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
     if (int65plus == false && int70plus == true && int75plus == false) {
         load = lockAndLoad([repMax * 0.7, repMax * 0.7250, repMax * 0.75], 3, 10);
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
     if (int65plus == false && int70plus == false && int75plus == true) {
         load = lockAndLoad([repMax * 0.75, repMax * 0.7750, repMax * 0.8], 3, 8);
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
-    return newTrainingUnit;
+    return newMainExercise;
 };
 const basicOverload = (Squat, Bench, Deadlift) => {
     let overLoadedArray = [
@@ -202,6 +210,16 @@ const basicOverload = (Squat, Bench, Deadlift) => {
     ];
     return overLoadedArray;
 };
+const basicOverload1 = (Squat, Bench, Deadlift) => {
+    let overLoadedArray = [
+        [progress4Strength('Squat', Squat, true, false, false), new AccesoryExercise('bulgarian', 100), new AccesoryExercise('chad', 120)],
+        [progress4Volume('Bench', Bench, true, false, false), new AccesoryExercise('bss', 100), new AccesoryExercise('cgad', 120)],
+        [progress4Strength('Deadlift', Deadlift, true, false, false), new AccesoryExercise('buddian', 100), new AccesoryExercise('gd', 120)],
+    ];
+    return overLoadedArray;
+};
+let z = basicOverload1(95, 125, 130);
+console.log(z);
 const chooseWhichFirst = (overload, choice) => {
     if (choice === 'smoothParts') {
         return overload.splice(9);
@@ -212,7 +230,6 @@ const chooseWhichFirst = (overload, choice) => {
     ;
     return;
 };
-let z = basicOverload(95, 125, 130);
 let usedUnits = [];
 let currentUnit = [];
 const freeFallProgression = (load) => {
@@ -220,9 +237,6 @@ const freeFallProgression = (load) => {
     let shiftingArray = load.shift();
     return shiftingArray;
 };
-freeFallProgression(z);
-console.log(usedUnits);
-console.log(z);
 let paidTwiceArray = [];
 let paidTwiceArray1 = [];
 let paidTwiceArray2 = [];
@@ -234,7 +248,6 @@ const playDice = (arr) => {
     return arr;
 };
 let nonrepeating = [];
-playDice(z);
 const trackTheVolume = (overload) => {
     let nag = [];
     overload.filter((e) => {

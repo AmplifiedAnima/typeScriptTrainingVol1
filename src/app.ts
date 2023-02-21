@@ -8,13 +8,66 @@ type num = number|number[]|[number]|[number[]]|{}|{}[]|[{}];
 
 class MainExercise {
 
-    mainExercise: string| string[]
+    mainExercise: string | string[]
     load: num;
    
     constructor(mainExercise: string, load: num) {
         this.mainExercise = mainExercise;
         this.load = load;
     }   
+}
+
+class MetabolicStress {
+
+    activity: string | string[];
+    metabolicLoad: num;
+    //duration: num 
+    // heartrate: num
+
+    constructor(activity: string, metabolicLoad: num) {
+        this.activity = activity, 
+        this.metabolicLoad = metabolicLoad
+    }
+}
+ 
+class MuscleGroups {
+    //legs
+    calves: string;
+    hamstrings: string;
+    quadriceps: string;
+    glutes: string;
+    //core
+    abdominals: string;
+    lowerback: string;
+    //upperbody
+    chest: string;
+    upperback: string;
+    shoulders: string;
+    biceps: string;
+    triceps: string;
+ 
+    constructor(calves: string, hamstrings: string, quadriceps: string, glutes: string,
+        abdominals: string, lowerback: string,
+        chest: string, upperback: string, shoulders: string,
+        biceps: string, triceps: string) {
+
+            this.calves = calves
+            this.hamstrings = hamstrings;
+            this.quadriceps = quadriceps;
+            this.glutes = glutes;
+
+            this.abdominals = abdominals;
+            this.lowerback = lowerback;
+
+            this.chest = chest;
+            this.upperback = upperback;
+            this.shoulders = shoulders;
+
+            this.biceps = biceps;
+            this.triceps = triceps
+        }
+
+    
 }
 // set types of exercises Bilateral/Unilateral
 
@@ -27,39 +80,11 @@ class AccesoryExercise {
     constructor(accesory:string, load:num) {
         this.accesory = accesory, 
         this.load = load 
+     
     }
 } 
 
-class MetabolicStress {
-
-    activity: string|string[];
-    metabolicLoad: num;
-    // duration: num 
-    // heartrate: num
-
-    public constructor(activity: string, metabolicLoad: num) {
-        this.activity = activity, 
-        this.metabolicLoad = metabolicLoad
-    }
-}
- 
-class TrainingUnit {
-
-    mainExercise: num;
-    load: num; 
-    accesories: num;
-    accesoriesLoad: num;
-    metabolicStress: num;
-
-    constructor(accesoriesLoad: num) {
-        this.mainExercise = MainExercise;
-        this.load = load;
-        this.accesories = AccesoryExercise;
-        this.accesoriesLoad = accesoriesLoad;
-        this.metabolicStress = MetabolicStress;
-    
-    }
-}
+//
 
 // This has to be learned and improved upon 
 const form4Load4: HTMLElement | null= document.getElementById('MainLoad');
@@ -78,7 +103,7 @@ const loadEstimateSquat: HTMLElement | null = document.getElementById('LoadEstim
 const loadEstimateDeadlift:  HTMLElement | null = document.getElementById('LoadEstimate_Deadlift') 
 const loadEstimateBench: HTMLElement | null = document.getElementById('LoadEstimate_Bench')
 
-const dataFromFunc = document.getElementById('kuku') as HTMLTableElement | null
+const dataFromFunc: HTMLElement | null = document.getElementById('kuku')
 
 
 form4Load4?.addEventListener('submit', (e)=> {
@@ -93,6 +118,7 @@ form4Load4?.addEventListener('submit', (e)=> {
     const repMax4Bench = benchLoad.toString()
 
     const array:  any = basicOverload(Math.round(squatLoad),Math.round(deadliftLoad),Math.round(benchLoad))
+  
     if (
         intensity4Squat?.value == '' && reps4LoadSquat?.value == ''
         && intensity4Deadlift?.value == '' &&  reps4Deadlift?.value == '' 
@@ -101,6 +127,7 @@ form4Load4?.addEventListener('submit', (e)=> {
     // if (intensity4Deadlift?.value === '' && reps4Deadlift?.value === ''|| Number(reps4Deadlift?.value))
 
     console.log(array)
+
    
     const Projection: any = array.map((element: any, index: number ) => {
         let table: string = ''
@@ -135,9 +162,11 @@ form4Load4?.addEventListener('submit', (e)=> {
                 </tr>
                 <tr>
                 <td><h4> Accesory I <h4></td>
+                <td></td>
                 </tr>
                 <tr>
                 <td><h4> Accesory II <h4></td>
+                <td></td>
                 </tr>
                 `
         return table;
@@ -170,9 +199,6 @@ const loadTheLoad = (repetitions: number, intensity: number) => {
 // int stands for intensity ( weight of kg u can bear )
 // static base ready to be morphed
 
-let load: num;
-let intensity: num;
-let newTrainingUnit: MainExercise;
 
 const lockAndLoad = (loadIntensity: number[], sets: number, reps: number) => {
         //build logic 4 knowing when to go up in reps
@@ -221,25 +247,28 @@ const lockAndLoad = (loadIntensity: number[], sets: number, reps: number) => {
     }
 }; 
 
+let load: num;
+let intensity: num;
+let newMainExercise: MainExercise;
 
-const progress4Strength = (mainExercise: string, repMax: number, int80plus :boolean, int88plus : boolean, int95plus: boolean) : MainExercise=> {
+const progress4Strength = (mainExercise: string, repMax: number, int80plus: boolean, int88plus: boolean, int95plus: boolean): MainExercise => {
     // this needs to be extended
     if (int80plus == true && int88plus == false && int95plus == false) {
 
         load = lockAndLoad([repMax * 0.8 ,repMax * 0.825, repMax * 0.85],5,5)
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
     if (int80plus == false && int88plus == true && int95plus == false) {
 
         load = lockAndLoad([repMax * 0.875 ,repMax * 0.9, repMax * 0.925],6,3)
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
     if (int80plus == false && int88plus == false && int95plus == true) {
     
         load = lockAndLoad([repMax * 0.90, repMax * 0.925, repMax * 0.95],7,2);
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
-    return newTrainingUnit;
+    return newMainExercise;
 };
 
 const progress4Volume = (mainExercise: string, repMax: number, int65plus: boolean, int70plus: boolean, int75plus: boolean) => {
@@ -247,22 +276,22 @@ const progress4Volume = (mainExercise: string, repMax: number, int65plus: boolea
     if (int65plus == true && int70plus == false && int75plus == false) {
 
         load = lockAndLoad([repMax * 0.65, repMax * 0.6750, repMax * 0.70],3,12);
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
     if (int65plus == false && int70plus == true && int75plus == false) {
 
         load = lockAndLoad([repMax * 0.7, repMax * 0.7250, repMax * 0.75],3,10)
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
     if (int65plus == false && int70plus == false && int75plus == true) {
 
         load = lockAndLoad([repMax * 0.75, repMax * 0.7750, repMax * 0.8],3,8)
-        return newTrainingUnit = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load);
     }
-    return newTrainingUnit;
+    return newMainExercise;
 };
 
-const basicOverload = (Squat: number, Bench: number, Deadlift: number,  ): {}[] => {
+const basicOverload = (Squat: number, Bench: number, Deadlift: number): {}[] => {
 
     let overLoadedArray = [  
     // litle to medium/optimal load intensities/volume
@@ -293,10 +322,20 @@ const basicOverload = (Squat: number, Bench: number, Deadlift: number,  ): {}[] 
     return overLoadedArray;
 };
 
+// const basicOverload1 = (Squat: number, Bench: number, Deadlift: number): {}[] => {
 
-// const accesoryOverload = (mainOverload: num , accesories: num) => {
-    
-// }
+//     let overLoadedArray = [  
+//     // litle to medium/optimal load intensities/volume
+//         [progress4Strength('Squat', Squat, true, false, false), new AccesoryExercise('bulgarian',100),new AccesoryExercise('chad',120)],
+//         [progress4Volume('Bench', Bench, true, false, false),new AccesoryExercise('bss',100),new AccesoryExercise('cgad',120)],
+//         [progress4Strength('Deadlift', Deadlift, true, false, false),new AccesoryExercise('buddian',100),new AccesoryExercise('gd',120)],
+//     ]
+
+//     return overLoadedArray;
+//     }
+
+let z:any = basicOverload1(95,125,130)
+console.log(z)
 
 const chooseWhichFirst = (overload:{}[]|[], choice: string) => {
 
@@ -309,7 +348,7 @@ const chooseWhichFirst = (overload:{}[]|[], choice: string) => {
     return
 }
 
-let z:any = basicOverload(95,125,130)
+
 
 
 let usedUnits: {}[] = [];
@@ -320,10 +359,6 @@ const freeFallProgression = (load: {}[]|[]) => {
     let shiftingArray = load.shift();
     return shiftingArray;
 }
-
-freeFallProgression(z)
-console.log(usedUnits)
-console.log(z)
 
 
 let paidTwiceArray: any = []
@@ -356,7 +391,7 @@ const playDice = (arr:any) => {
 // }
 
 let nonrepeating: {}[] = []
-playDice(z)
+
 
 
 const trackTheVolume = (overload: {}[]) => {
