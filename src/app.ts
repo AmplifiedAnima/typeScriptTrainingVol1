@@ -6,16 +6,43 @@ type num = number|number[]|[number]|[number[]]|{}|{}[]|[{}];
 // building block for training unit
 
 
+
+class TrainingUnit {
+
+    MainExercise: MainExercise;
+    Accesories: AccesoryExercise[];
+    MetabolicStress?: MetabolicStress;
+
+    constructor(MainExercise: MainExercise,Accesories: AccesoryExercise[],MetabolicStress:MetabolicStress) {
+        this.MainExercise = MainExercise;
+        this.Accesories = Accesories;
+        this.MetabolicStress = MetabolicStress
+    }
+
+}
 class MainExercise {
 
     mainExercise: string | string[]
     load: num;
    
-    constructor(mainExercise: string, load: num) {
+   
+    constructor(mainExercise: string, load: num,) {
         this.mainExercise = mainExercise;
         this.load = load;
-    }   
+    }
 }
+
+class AccesoryExercise {
+
+    accesory: string | string[];
+    load: num;
+
+    constructor(accesory:string, load:num) {
+        this.accesory = accesory, 
+        this.load = load
+     
+    }
+} 
 
 class MetabolicStress {
 
@@ -69,22 +96,22 @@ class MuscleGroups {
 
     
 }
-// set types of exercises Bilateral/Unilateral
 
-// elaborate on load from here
-class AccesoryExercise {
+//Accesories
+let Acc1 = [
+    new AccesoryExercise('Bulgarian split squat',[3,10]),
+    new AccesoryExercise('Swing',[3,10]),
+    new AccesoryExercise('Calf raises',[3,20])]
 
-    accesory: string | string[];
-    load: num;
+let Acc2 = [
+    new AccesoryExercise('Pull-ups',[3,10]),
+    new AccesoryExercise('Bicep curls',[3,10]),
+    new AccesoryExercise('Db press',[3,10])]
 
-    constructor(accesory:string, load:num) {
-        this.accesory = accesory, 
-        this.load = load 
-     
-    }
-} 
-
-//
+let Acc3 = [
+    new AccesoryExercise('Overhead press',[3,10]),
+    new AccesoryExercise('Russian twists',[3,20]),
+    new AccesoryExercise('shrugs',[3,20])]
 
 // This has to be learned and improved upon 
 const form4Load4: HTMLElement | null= document.getElementById('MainLoad');
@@ -103,7 +130,7 @@ const loadEstimateSquat: HTMLElement | null = document.getElementById('LoadEstim
 const loadEstimateDeadlift:  HTMLElement | null = document.getElementById('LoadEstimate_Deadlift') 
 const loadEstimateBench: HTMLElement | null = document.getElementById('LoadEstimate_Bench')
 
-const dataFromFunc: HTMLElement | null = document.getElementById('kuku')
+const dataFromFunc: HTMLElement| null = document.getElementById('kuku')
 
 
 form4Load4?.addEventListener('submit', (e)=> {
@@ -117,8 +144,8 @@ form4Load4?.addEventListener('submit', (e)=> {
     const repMax4Deadlift = deadliftLoad.toString()
     const repMax4Bench = benchLoad.toString()
 
-    const array:  any = basicOverload(Math.round(squatLoad),Math.round(deadliftLoad),Math.round(benchLoad))
-  
+    const array: {}[] = basicOverload(Math.round(squatLoad),Math.round(deadliftLoad),Math.round(benchLoad))
+
     if (
         intensity4Squat?.value == '' && reps4LoadSquat?.value == ''
         && intensity4Deadlift?.value == '' &&  reps4Deadlift?.value == '' 
@@ -129,51 +156,61 @@ form4Load4?.addEventListener('submit', (e)=> {
     console.log(array)
 
    
-    const Projection: any = array.map((element: any, index: number ) => {
+    const Projection: string[]|string|any= array.map((element: any, index: number ) => {
         let table: string = ''
         table +=`  
                 <tr>
                 <th><h4>${index+1}. Training unit</h4></th>
                 </tr>
                 <tr>
-                <td><h4> Main exercise : ${element.mainExercise}<h4></td>
+                <td><h4> Main exercise : ${element[0].mainExercise}<h4></td>
                 </tr>
                 <td><h5>Intensity <h5></td>
                 <td><h5>Sets <h5></td>
                 <td></td>
                 <td><h5>Reps <h5></td>
                 <tr>
-                <td><h5>${Math.round(element.load[0][0])} kg </h5></td>
-                <td><h5>${element.load[0][1]}</h5></td>
+                <td><h4>${Math.round(element[0].load[0][0])} kg </h4></td>
+                <td><h5>${element[0].load[0][1]}</h5></td>
                 <td></td>
-                <td><h5>${element.load[0][2]}</h5></td>
+                <td><h5>${element[0].load[0][2]}</h5></td>
                 </tr>
                 <tr>
-                <td><h5>${Math.round(element.load[1][0])} kg </h5></td>
-                <td><h5>${element.load[1][1]}</h5></td>
+                <td><h4>${Math.round(element[0].load[1][0])} kg </h4></td>
+                <td><h5>${element[0].load[1][1]}</h5></td>
                 <td></td>
-                <td><h5>${element.load[1][2]}</h5></td>
+                <td><h5>${element[0].load[1][2]}</h5></td>
                 </tr>
                 <tr>
-                <td><h5>${Math.round(element.load[2][0])} kg </h5></td>
-                <td><h5>${element.load[2][1]}</h5></td>
+                <td><h4>${Math.round(element[0].load[2][0])} kg </h4></td>
+                <td><h5>${element[0].load[2][1]}</h5></td>
                 <td></td>
-                <td><h5>${element.load[2][2]}</h5></td>
+                <td><h5>${element[0].load[2][2]}</h5></td>
                 </tr>
                 <tr>
-                <td><h4> Accesory I <h4></td>
+                <td><h4> Accesory I : ${element[1][0].accesory}</h4></td>
+                <td><h5>${element[1][0].load[0]}</h5></td>
                 <td></td>
+                <td><h5>${element[1][0].load[1]}</h5></td>
+                </tr>   
+                <tr>
+                <td><h4> Accesory II : ${element[1][1].accesory} </h4></td>
+                <td><h5>${element[1][1].load[0]}</h5></td>
+                <td></td>
+                <td><h5>${element[1][1].load[1]}</h5></td>
                 </tr>
                 <tr>
-                <td><h4> Accesory II <h4></td>
+                <td><h4> Accesory III : ${element[1][2].accesory} </h4></td>
+                <td><h5>${element[1][2].load[0]}</h5></td>
+                <td></td>
+                <td><h5>${element[1][2].load[1]}</h5></td>
                 <td></td>
                 </tr>
                 `
         return table;
     })
     dataFromFunc!.innerHTML = Projection
-
-
+  
  
     // loadEstimateSquat!.innerText = repMax4Squat
     // loadEstimateBench!.innerText = repMax4Bench
@@ -295,46 +332,40 @@ const basicOverload = (Squat: number, Bench: number, Deadlift: number): {}[] => 
 
     let overLoadedArray = [  
     // litle to medium/optimal load intensities/volume
-        progress4Strength('Squat', Squat, true, false, false),
-        progress4Volume('Bench', Bench, true, false, false),
-        progress4Strength('Deadlift', Deadlift, true, false, false),
+        [progress4Strength('Squat', Squat, true, false, false),Acc1],
+        [progress4Volume('Bench', Bench, true, false, false),Acc2],
+        [progress4Strength('Deadlift', Deadlift, true, false, false),Acc3],
 
-        progress4Volume('Squat',Squat, false, true, false),
-        progress4Strength('Bench', Bench, true, false, false),
-        progress4Volume('Deadlift', Deadlift, false , true ,false),
+        [progress4Volume('Squat',Squat, false, true, false),Acc1],
+        [progress4Strength('Bench', Bench, true, false, false),Acc2],
+        [progress4Volume('Deadlift', Deadlift, false , true ,false),Acc3],
      
-        progress4Strength('Squat', Squat, false, true ,false),
-        progress4Volume('Bench', Bench, false, true, false),
-        progress4Strength('Deadlift', Deadlift, false, true, false),
+        [progress4Strength('Squat', Squat, false, true ,false),Acc1],
+        [progress4Volume('Bench', Bench, false, true, false),Acc2],
+        [progress4Strength('Deadlift', Deadlift, false, true, false),Acc3],
 // middle to overload tier / hard/optimal
-        progress4Volume('Squat', Squat, false , false, true),
-        progress4Strength('Bench', Bench, false, true, false),
-        progress4Volume('Deadlift', Deadlift, false, false, true),
+        [progress4Volume('Squat', Squat, false , false, true),Acc1],
+        [progress4Strength('Bench', Bench, false, true, false),Acc2],
+        [progress4Volume('Deadlift', Deadlift, false, false, true),Acc3],
      
-        progress4Strength('Squat', Squat, false, false, true),
-        progress4Volume('Bench', Bench, false, false, true),
-        progress4Strength('Deadlift', Deadlift, false, false, true),
+        [progress4Strength('Squat', Squat, false, false, true),Acc1],
+        [progress4Volume('Bench', Bench, false, false, true),Acc2],
+        [progress4Strength('Deadlift', Deadlift, false, false, true),Acc3],
 
-        progress4Volume('Squat', Squat, true , false, false),
-        progress4Strength('Bench', Bench, false, false, true),
-        progress4Volume('Deadlift', Deadlift,  true, false, false)]
+        [progress4Volume('Squat', Squat, true , false, false),Acc1],
+        [progress4Strength('Bench', Bench, false, false, true),Acc2],
+        [progress4Volume('Deadlift', Deadlift,  true, false, false),Acc3],
+        ]
 
     return overLoadedArray;
 };
 
-// const basicOverload1 = (Squat: number, Bench: number, Deadlift: number): {}[] => {
 
-//     let overLoadedArray = [  
-//     // litle to medium/optimal load intensities/volume
-//         [progress4Strength('Squat', Squat, true, false, false), new AccesoryExercise('bulgarian',100),new AccesoryExercise('chad',120)],
-//         [progress4Volume('Bench', Bench, true, false, false),new AccesoryExercise('bss',100),new AccesoryExercise('cgad',120)],
-//         [progress4Strength('Deadlift', Deadlift, true, false, false),new AccesoryExercise('buddian',100),new AccesoryExercise('gd',120)],
-//     ]
 
-//     return overLoadedArray;
-//     }
 
-let z:any = basicOverload1(95,125,130)
+
+
+let z = basicOverload(100,120,130)
 console.log(z)
 
 const chooseWhichFirst = (overload:{}[]|[], choice: string) => {
