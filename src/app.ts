@@ -1,7 +1,7 @@
 
 //intensity
 
-type num = number|number[]|[number]|[number[]]|{}|{}[]|[{}];
+type num = number|number[]|[number]|[number[]]|{}|{}[]|[{}]|string|string[]|[string]|[string[]];
 
 // building block for training unit
 
@@ -13,7 +13,7 @@ class TrainingUnit {
     Accesories: AccesoryExercise[];
     MetabolicStress?: MetabolicStress;
 
-    constructor(MainExercise: MainExercise,Accesories: AccesoryExercise[],MetabolicStress:MetabolicStress) {
+    constructor(MainExercise: MainExercise, Accesories: AccesoryExercise[], MetabolicStress: MetabolicStress) {
         this.MainExercise = MainExercise;
         this.Accesories = Accesories;
         this.MetabolicStress = MetabolicStress
@@ -24,11 +24,14 @@ class MainExercise {
 
     mainExercise: string | string[]
     load: num;
+    pauseDuration?: num;
+    
+    
    
-   
-    constructor(mainExercise: string, load: num,) {
+    constructor(mainExercise: string, load: num, pauseDuration?: num) {
         this.mainExercise = mainExercise;
         this.load = load;
+        this.pauseDuration = pauseDuration;
     }
 }
 
@@ -36,10 +39,12 @@ class AccesoryExercise {
 
     accesory: string | string[];
     load: num;
+    muscleGroupEngaded?: MuscleGroups | MuscleGroups[];
 
-    constructor(accesory:string, load:num) {
+    constructor(accesory:string, load:num, muscleGroupEngaded?: MuscleGroups | MuscleGroups[]) {
         this.accesory = accesory, 
         this.load = load
+        this.muscleGroupEngaded = muscleGroupEngaded;
      
     }
 } 
@@ -48,72 +53,164 @@ class MetabolicStress {
 
     activity: string | string[];
     metabolicLoad: num;
-    //duration: num 
-    // heartrate: num
-
-    constructor(activity: string, metabolicLoad: num) {
+    duration: num;
+    
+    constructor(activity: string, metabolicLoad: num ,duration: num) {
         this.activity = activity, 
-        this.metabolicLoad = metabolicLoad
+        this.metabolicLoad = metabolicLoad,
+        this.duration = duration
+    
     }
 }
  
 class MuscleGroups {
-    //legs
+ 
     calves: string;
+    tibialis: string;
     hamstrings: string;
     quadriceps: string;
     glutes: string;
-    //core
+
     abdominals: string;
+    obliques: string;
     lowerback: string;
-    //upperbody
+ 
     chest: string;
-    upperback: string;
+    upperbackAndScapula: string;
     shoulders: string;
     biceps: string;
     triceps: string;
+    forearm: string;
  
-    constructor(calves: string, hamstrings: string, quadriceps: string, glutes: string,
-        abdominals: string, lowerback: string,
-        chest: string, upperback: string, shoulders: string,
-        biceps: string, triceps: string) {
-
+    constructor(
+        calves: string,  tibialis:string, hamstrings: string, quadriceps: string, glutes: string,
+        abdominals: string, obliques:string, lowerback: string,
+        chest: string,     upperbackAndScapula: string, shoulders: string,
+        biceps: string, triceps: string, forearm: string) {
+            //legs
             this.calves = calves
+            this.tibialis = tibialis;
             this.hamstrings = hamstrings;
             this.quadriceps = quadriceps;
             this.glutes = glutes;
-
+            //trunk (***could be called core)
             this.abdominals = abdominals;
+            this.obliques = obliques;
             this.lowerback = lowerback;
-
+            //upperbody
             this.chest = chest;
-            this.upperback = upperback;
+            this.upperbackAndScapula = upperbackAndScapula;
             this.shoulders = shoulders;
-
+            //arms
             this.biceps = biceps;
-            this.triceps = triceps
+            this.triceps = triceps;
+            this.forearm = forearm;
         }
-
-    
 }
 
-//Accesories
-let Acc1 = [
-    new AccesoryExercise('Bulgarian split squat',[3,10]),
-    new AccesoryExercise('Swing',[3,10]),
-    new AccesoryExercise('Calf raises',[3,20])]
+class TypesOfTraining { 
 
-let Acc2 = [
-    new AccesoryExercise('Pull-ups',[3,10]),
-    new AccesoryExercise('Bicep curls',[3,10]),
-    new AccesoryExercise('Db press',[3,10])]
+    strength: string;
+    speed: string;
+    power: string;
+    agility: string 
+    anaerobicCapacity: string;
+    aerobicCapacity: string;
+    mobility: string;
+    balanceAndCoordination: string; 
+    stability: string;
 
-let Acc3 = [
-    new AccesoryExercise('Overhead press',[3,10]),
-    new AccesoryExercise('Russian twists',[3,20]),
-    new AccesoryExercise('shrugs',[3,20])]
+    constructor(
+        strength: string,
+        speed: string,
+        power: string,
+        agility: string, 
+        anaerobicCapacity: string,
+        aerobicCpacity: string,
+        mobility: string,
+        balanceAndCoordination: string, 
+        stability: string) {
 
-// This has to be learned and improved upon 
+        this.strength = strength;
+        this.speed = speed;
+        this.power = power;
+        this.agility = agility;
+        this.anaerobicCapacity = anaerobicCapacity;
+        this.aerobicCapacity = aerobicCpacity;
+        this.mobility = mobility;
+        this.balanceAndCoordination = balanceAndCoordination;
+        this.stability = stability;
+    }
+}
+class TypesOfMovement { 
+
+    bilateral: string;
+    unilateral: string;
+    rotational: string;
+    traversal: string;
+
+    constructor(
+        bilateral: string, unilateral: string, rotational: string, traversal: string,) {
+
+        this.bilateral = bilateral;
+        this.unilateral = unilateral;
+        this.rotational = rotational;
+        this.traversal = traversal;
+    }
+}
+
+class ExerciseVariations {
+
+    isometrics: string; 
+    prolongedEccentricPhase: string;
+    prolongedConentricPhase: string;
+    pausesDuringRep: string;
+    oneAndHalfRep: string;
+
+    constructor(
+        isometrics: string, 
+        prolongedEccentricPhase: string,
+        prolongedConentricPhase: string,
+        pausesDuringRep: string,
+        oneAndHalfRep: string) {
+
+            this.isometrics = isometrics;
+            this.prolongedEccentricPhase = prolongedEccentricPhase;
+            this.prolongedConentricPhase = prolongedConentricPhase;
+            this.pausesDuringRep = pausesDuringRep;
+            this.oneAndHalfRep = oneAndHalfRep;
+        }
+}
+
+class Tools4Exercises {
+
+    normalBarbell: string;
+    trapBar: string;
+    openTrapBar: string;
+    cumberedBar: string;
+    safetyBar: string;
+    
+    constructor(
+        normalBarbell: string,
+        trapBar: string,
+        openTrapBar: string,
+        cumberedBar: string,
+        safetyBar: string,
+    )   {
+        this.normalBarbell = normalBarbell;
+        this.trapBar = trapBar;
+        this.openTrapBar = openTrapBar;
+        this.cumberedBar = cumberedBar;
+        this.safetyBar = safetyBar;
+    }
+
+
+}
+// create a pool so user can drag and drop items into the projection/plan
+
+
+//Accesories Default for average bloke 
+
 const form4Load4: HTMLElement | null= document.getElementById('MainLoad');
 
 const reps4LoadSquat: HTMLInputElement | null = document.querySelector('#repsSquat') ;
@@ -327,6 +424,24 @@ const progress4Volume = (mainExercise: string, repMax: number, int65plus: boolea
     }
     return newMainExercise;
 };
+
+// find a way to randomize it if user needs
+let Acc1 = [
+    new AccesoryExercise('Bulgarian split squat',[3,10]),
+    new AccesoryExercise('Swing',[3,10]),
+    new AccesoryExercise('Calf raises',[3,20])]
+
+let Acc2 = [
+    new AccesoryExercise('Pull-ups',[3,10]),
+    new AccesoryExercise('Bicep curls',[3,10]),
+    new AccesoryExercise('Db press',[3,10])]
+
+let Acc3 = [
+    new AccesoryExercise('Overhead press',[3,10]),
+    new AccesoryExercise('Russian twists',[3,20]),
+    new AccesoryExercise('shrugs',[3,20])]
+
+// This has to be learned and improved upon 
 
 const basicOverload = (Squat: number, Bench: number, Deadlift: number): {}[] => {
 

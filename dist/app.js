@@ -7,53 +7,83 @@ class TrainingUnit {
     }
 }
 class MainExercise {
-    constructor(mainExercise, load) {
+    constructor(mainExercise, load, pauseDuration) {
         this.mainExercise = mainExercise;
         this.load = load;
+        this.pauseDuration = pauseDuration;
     }
 }
 class AccesoryExercise {
-    constructor(accesory, load) {
+    constructor(accesory, load, muscleGroupEngaded) {
         this.accesory = accesory,
             this.load = load;
+        this.muscleGroupEngaded = muscleGroupEngaded;
     }
 }
 class MetabolicStress {
-    constructor(activity, metabolicLoad) {
+    constructor(activity, metabolicLoad, duration) {
         this.activity = activity,
-            this.metabolicLoad = metabolicLoad;
+            this.metabolicLoad = metabolicLoad,
+            this.duration = duration;
     }
 }
 class MuscleGroups {
-    constructor(calves, hamstrings, quadriceps, glutes, abdominals, lowerback, chest, upperback, shoulders, biceps, triceps) {
+    constructor(calves, tibialis, hamstrings, quadriceps, glutes, abdominals, obliques, lowerback, chest, upperbackAndScapula, shoulders, biceps, triceps, forearm) {
         this.calves = calves;
+        this.tibialis = tibialis;
         this.hamstrings = hamstrings;
         this.quadriceps = quadriceps;
         this.glutes = glutes;
         this.abdominals = abdominals;
+        this.obliques = obliques;
         this.lowerback = lowerback;
         this.chest = chest;
-        this.upperback = upperback;
+        this.upperbackAndScapula = upperbackAndScapula;
         this.shoulders = shoulders;
         this.biceps = biceps;
         this.triceps = triceps;
+        this.forearm = forearm;
     }
 }
-let Acc1 = [
-    new AccesoryExercise('Bulgarian split squat', [3, 10]),
-    new AccesoryExercise('Swing', [3, 10]),
-    new AccesoryExercise('Calf raises', [3, 20])
-];
-let Acc2 = [
-    new AccesoryExercise('Pull-ups', [3, 10]),
-    new AccesoryExercise('Bicep curls', [3, 10]),
-    new AccesoryExercise('Db press', [3, 10])
-];
-let Acc3 = [
-    new AccesoryExercise('Overhead press', [3, 10]),
-    new AccesoryExercise('Russian twists', [3, 20]),
-    new AccesoryExercise('shrugs', [3, 20])
-];
+class TypesOfTraining {
+    constructor(strength, speed, power, agility, anaerobicCapacity, aerobicCpacity, mobility, balanceAndCoordination, stability) {
+        this.strength = strength;
+        this.speed = speed;
+        this.power = power;
+        this.agility = agility;
+        this.anaerobicCapacity = anaerobicCapacity;
+        this.aerobicCapacity = aerobicCpacity;
+        this.mobility = mobility;
+        this.balanceAndCoordination = balanceAndCoordination;
+        this.stability = stability;
+    }
+}
+class TypesOfMovement {
+    constructor(bilateral, unilateral, rotational, traversal) {
+        this.bilateral = bilateral;
+        this.unilateral = unilateral;
+        this.rotational = rotational;
+        this.traversal = traversal;
+    }
+}
+class ExerciseVariations {
+    constructor(isometrics, prolongedEccentricPhase, prolongedConentricPhase, pausesDuringRep, oneAndHalfRep) {
+        this.isometrics = isometrics;
+        this.prolongedEccentricPhase = prolongedEccentricPhase;
+        this.prolongedConentricPhase = prolongedConentricPhase;
+        this.pausesDuringRep = pausesDuringRep;
+        this.oneAndHalfRep = oneAndHalfRep;
+    }
+}
+class Tools4Exercises {
+    constructor(normalBarbell, trapBar, openTrapBar, cumberedBar, safetyBar) {
+        this.normalBarbell = normalBarbell;
+        this.trapBar = trapBar;
+        this.openTrapBar = openTrapBar;
+        this.cumberedBar = cumberedBar;
+        this.safetyBar = safetyBar;
+    }
+}
 const form4Load4 = document.getElementById('MainLoad');
 const reps4LoadSquat = document.querySelector('#repsSquat');
 const intensity4Squat = document.querySelector('#intensitySquat');
@@ -220,6 +250,21 @@ const progress4Volume = (mainExercise, repMax, int65plus, int70plus, int75plus) 
     }
     return newMainExercise;
 };
+let Acc1 = [
+    new AccesoryExercise('Bulgarian split squat', [3, 10]),
+    new AccesoryExercise('Swing', [3, 10]),
+    new AccesoryExercise('Calf raises', [3, 20])
+];
+let Acc2 = [
+    new AccesoryExercise('Pull-ups', [3, 10]),
+    new AccesoryExercise('Bicep curls', [3, 10]),
+    new AccesoryExercise('Db press', [3, 10])
+];
+let Acc3 = [
+    new AccesoryExercise('Overhead press', [3, 10]),
+    new AccesoryExercise('Russian twists', [3, 20]),
+    new AccesoryExercise('shrugs', [3, 20])
+];
 const basicOverload = (Squat, Bench, Deadlift) => {
     let overLoadedArray = [
         [progress4Strength('Squat', Squat, true, false, false), Acc1],
