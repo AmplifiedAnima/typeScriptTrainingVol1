@@ -7,10 +7,9 @@ class TrainingUnit {
     }
 }
 class MainExercise {
-    constructor(mainExercise, load, pauseDuration) {
+    constructor(mainExercise, load) {
         this.mainExercise = mainExercise;
         this.load = load;
-        this.pauseDuration = pauseDuration;
     }
 }
 class AccesoryExercise {
@@ -21,10 +20,11 @@ class AccesoryExercise {
     }
 }
 class MetabolicStress {
-    constructor(activity, metabolicLoad, duration) {
+    constructor(activity, metabolicLoad, duration, distance) {
         this.activity = activity,
             this.metabolicLoad = metabolicLoad,
-            this.duration = duration;
+            this.duration = duration,
+            this.distance = distance;
     }
 }
 class MuscleGroups {
@@ -46,42 +46,55 @@ class MuscleGroups {
     }
 }
 class TypesOfTraining {
-    constructor(strength, speed, power, agility, anaerobicCapacity, aerobicCpacity, mobility, balanceAndCoordination, stability) {
+    constructor(strength, speed, power, agility, anaerobicCapacity, aerobicCpacity) {
         this.strength = strength;
         this.speed = speed;
         this.power = power;
         this.agility = agility;
         this.anaerobicCapacity = anaerobicCapacity;
         this.aerobicCapacity = aerobicCpacity;
-        this.mobility = mobility;
-        this.balanceAndCoordination = balanceAndCoordination;
-        this.stability = stability;
     }
 }
 class TypesOfMovement {
-    constructor(bilateral, unilateral, rotational, traversal) {
+    constructor(standing, bilateral, unilateral, lateral, rotational, traversal, plyometric, balistic) {
+        this.standing = standing;
         this.bilateral = bilateral;
         this.unilateral = unilateral;
+        this.lateral = lateral;
         this.rotational = rotational;
         this.traversal = traversal;
+        this.plyometric = plyometric;
+        this.balistic = balistic;
     }
 }
 class ExerciseVariations {
-    constructor(isometrics, prolongedEccentricPhase, prolongedConentricPhase, pausesDuringRep, oneAndHalfRep) {
+    constructor(isometrics, prolongedEccentricPhase, prolongedConentricPhase, pausesDuringRep, oneAndHalfRep, explosive) {
         this.isometrics = isometrics;
         this.prolongedEccentricPhase = prolongedEccentricPhase;
         this.prolongedConentricPhase = prolongedConentricPhase;
         this.pausesDuringRep = pausesDuringRep;
         this.oneAndHalfRep = oneAndHalfRep;
+        this.explosive = explosive;
     }
 }
 class Tools4Exercises {
-    constructor(normalBarbell, trapBar, openTrapBar, cumberedBar, safetyBar) {
+    constructor(normalBarbell, trapBar, openTrapBar, cumberedBar, safetyBar, landmineHalfOfBarbell, dumbBells, kettleBells, platesAndBumpers, bulgarianBag, balls, gymnasticRings, TRX, ropes, resistanceBand, slantboard) {
         this.normalBarbell = normalBarbell;
         this.trapBar = trapBar;
         this.openTrapBar = openTrapBar;
         this.cumberedBar = cumberedBar;
         this.safetyBar = safetyBar;
+        this.landmineHalfOfBarbell = landmineHalfOfBarbell;
+        this.dumbBells = dumbBells;
+        this.kettleBells = kettleBells;
+        this.platesAndBumpers = platesAndBumpers;
+        this.bulgarianBag = bulgarianBag;
+        this.balls = balls;
+        this.gymnasticRings = gymnasticRings;
+        this.TRX = TRX;
+        this.ropes = ropes;
+        this.resistanceBand = resistanceBand;
+        this.slantboard = slantboard;
     }
 }
 const form4Load4 = document.getElementById('MainLoad');
@@ -96,6 +109,13 @@ const loadEstimateSquat = document.getElementById('LoadEstimate_Squat');
 const loadEstimateDeadlift = document.getElementById('LoadEstimate_Deadlift');
 const loadEstimateBench = document.getElementById('LoadEstimate_Bench');
 const dataFromFunc = document.getElementById('kuku');
+const playDice = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * Math.floor(arr.length - 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+};
 form4Load4 === null || form4Load4 === void 0 ? void 0 : form4Load4.addEventListener('submit', (e) => {
     e.preventDefault();
     const squatLoad = loadTheLoad(Math.round(Number(reps4LoadSquat === null || reps4LoadSquat === void 0 ? void 0 : reps4LoadSquat.value)), Number(intensity4Squat === null || intensity4Squat === void 0 ? void 0 : intensity4Squat.value));
@@ -110,6 +130,12 @@ form4Load4 === null || form4Load4 === void 0 ? void 0 : form4Load4.addEventListe
         && (intensity4Bench === null || intensity4Bench === void 0 ? void 0 : intensity4Bench.value) == '' && (reps4Bench === null || reps4Bench === void 0 ? void 0 : reps4Bench.value) == '')
         console.log(array);
     const Projection = array.map((element, index) => {
+        let firstExerciseLoad = element[0].load[0];
+        let secondExerciseLoad = element[0].load[1];
+        let thirdExerciseLoad = element[0].load[2];
+        let firstExerciseLoadAccesory = element[1][0].load;
+        let secondExerciseLoadAccesory = element[1][1].load;
+        let thirdExerciseLoadAccesory = element[1][2].load;
         let table = '';
         table += `  
                 <tr>
@@ -123,41 +149,45 @@ form4Load4 === null || form4Load4 === void 0 ? void 0 : form4Load4.addEventListe
                 <td></td>
                 <td><h5>Reps <h5></td>
                 <tr>
-                <td><h4>${Math.round(element[0].load[0][0])} kg </h4></td>
-                <td><h5>${element[0].load[0][1]}</h5></td>
+                <td><h4>${Math.round(firstExerciseLoad[0])} kg </h4></td>
+                <td><h5>${firstExerciseLoad[1]}</h5></td>
                 <td></td>
-                <td><h5>${element[0].load[0][2]}</h5></td>
+                <td><h5>${firstExerciseLoad[2]}</h5></td>
                 </tr>
                 <tr>
-                <td><h4>${Math.round(element[0].load[1][0])} kg </h4></td>
-                <td><h5>${element[0].load[1][1]}</h5></td>
+                <td><h4>${Math.round(secondExerciseLoad[0])} kg </h4></td>
+                <td><h5>${secondExerciseLoad[1]}</h5></td>
                 <td></td>
-                <td><h5>${element[0].load[1][2]}</h5></td>
+                <td><h5>${secondExerciseLoad[2]}</h5></td>
                 </tr>
                 <tr>
-                <td><h4>${Math.round(element[0].load[2][0])} kg </h4></td>
-                <td><h5>${element[0].load[2][1]}</h5></td>
+                <td><h4>${Math.round(thirdExerciseLoad[0])} kg </h4></td>
+                <td><h5>${thirdExerciseLoad[1]}</h5></td>
                 <td></td>
-                <td><h5>${element[0].load[2][2]}</h5></td>
+                <td><h5>${thirdExerciseLoad[2]}</h5></td>
                 </tr>
                 <tr>
-                <td><h4> Accesory I : ${element[1][0].accesory}</h4></td>
-                <td><h5>${element[1][0].load[0]}</h5></td>
+                <td><h4> Accesory I: ${element[1][0].accesory}</h4></td>
+                <td><h5>${firstExerciseLoadAccesory[0]}</h5></td>
                 <td></td>
-                <td><h5>${element[1][0].load[1]}</h5></td>
+                <td><h5>${firstExerciseLoadAccesory[1]}</h5></td>
                 </tr>   
                 <tr>
-                <td><h4> Accesory II : ${element[1][1].accesory} </h4></td>
-                <td><h5>${element[1][1].load[0]}</h5></td>
+                <td><h4> Accesory II: ${element[1][1].accesory} </h4></td>
+                <td><h5>${secondExerciseLoadAccesory[0]}</h5></td>
                 <td></td>
-                <td><h5>${element[1][1].load[1]}</h5></td>
+                <td><h5>${secondExerciseLoadAccesory[1]}</h5></td>
                 </tr>
                 <tr>
-                <td><h4> Accesory III : ${element[1][2].accesory} </h4></td>
-                <td><h5>${element[1][2].load[0]}</h5></td>
+                <td><h4> Accesory III: ${element[1][2].accesory} </h4></td>
+                <td><h5>${thirdExerciseLoadAccesory[0]}</h5></td>
                 <td></td>
-                <td><h5>${element[1][2].load[1]}</h5></td>
+                <td><h5>${thirdExerciseLoadAccesory[1]}</h5></td>
                 <td></td>
+                </tr>
+                <td></td>
+                <tr>
+
                 </tr>
                 `;
         return table;
@@ -217,6 +247,8 @@ const lockAndLoad = (loadIntensity, sets, reps) => {
         return load;
     }
 };
+const lockAndLoadForAccesories = () => {
+};
 let load;
 let intensity;
 let newMainExercise;
@@ -250,41 +282,149 @@ const progress4Volume = (mainExercise, repMax, int65plus, int70plus, int75plus) 
     }
     return newMainExercise;
 };
-let Acc1 = [
-    new AccesoryExercise('Bulgarian split squat', [3, 10]),
+let mainExercises = [
+    new AccesoryExercise('Squat', [3, 10]),
+    new AccesoryExercise('Deadlift', [3, 10]),
+    new AccesoryExercise('Benchpress', [3, 10])
+];
+let lowerBodyUnilateral = [
+    new AccesoryExercise('Bulgarian split squat', [4, 10]),
+    new AccesoryExercise('Lunge backwards', [4, 10]),
+    new AccesoryExercise('Lunge forward', [4, 10]),
+    new AccesoryExercise('Lunge lateral (partial cossack squat)', [4, 10]),
+    new AccesoryExercise('Cossack squat full ROM', [4, 10]),
+    new AccesoryExercise('Single-legged romanian deadlift', [4, 10]),
+    new AccesoryExercise('Staggered-stance romanian deadlift', [4, 10]),
+    new AccesoryExercise('Box step-ups', [4, 10]),
+    new AccesoryExercise('Single leg squats', [4, 10]),
+    new AccesoryExercise('Poliquin step-up', [4, 10])
+];
+let lowerBodyBilateral = [
+    new AccesoryExercise('Back squat', [3, 10]),
+    new AccesoryExercise('Front squat', [3, 10]),
+    new AccesoryExercise('Box squat', [3, 10]),
+    new AccesoryExercise('Pin squat', [3, 10]),
+    new AccesoryExercise('Hack squat', [3, 10]),
+    new AccesoryExercise('Overhead squat', [3, 10])
+];
+let legsSmallExercises = [
+    new AccesoryExercise('Calf raises', [3, 10]),
+    new AccesoryExercise('Single-leg Calf raises', [4, 10]),
+    new AccesoryExercise('Tibialis raises', [3, 10]),
+    new AccesoryExercise('', [3, 10]),
+];
+let jointConditioningFRC = [
+    new AccesoryExercise('Hip full ROM rotations lying on the side', [3, 10]),
+    new AccesoryExercise('Hip full ROM rotations while standing', [3, 10]),
+];
+let hardstyleSfgSpecific = [
     new AccesoryExercise('Swing', [3, 10]),
-    new AccesoryExercise('Calf raises', [3, 20])
+    new AccesoryExercise('One arm swing', [3, 10]),
+    new AccesoryExercise('Turkish get-up', [3, 10]),
+    new AccesoryExercise('Bent press', [3, 10]),
+    new AccesoryExercise('Windmill', [3, 10]),
+    new AccesoryExercise('One arm kettlebell snatch', [3, 10]),
+    new AccesoryExercise('One arm dumbell snatch', [3, 10]),
 ];
-let Acc2 = [
+let PullExercises = [
+    new AccesoryExercise('Push-ups', [3, 10]),
     new AccesoryExercise('Pull-ups', [3, 10]),
+    new AccesoryExercise('Pull-ups neutral grip', [3, 10]),
+    new AccesoryExercise('Commando Pull-ups', [3, 10]),
+    new AccesoryExercise('Chin-ups', [3, 10]),
+];
+let isometricsAndHangs = [
+    new AccesoryExercise('Deadhangs', [3, 10]),
+    new AccesoryExercise('Plank', [3, 20]),
+    new AccesoryExercise('Side-plank', [3, 20]),
+    new AccesoryExercise('Reverse gymnastic plank', [3, 10]),
+    new AccesoryExercise('Push-up position hold', [3, 20]),
+    new AccesoryExercise('Bridge', [3, 20])
+];
+let armsHypetrophy = [
     new AccesoryExercise('Bicep curls', [3, 10]),
-    new AccesoryExercise('Db press', [3, 10])
+    new AccesoryExercise('Bicep curls', [3, 10]),
+    new AccesoryExercise('Skull crushers', [3, 10]),
 ];
-let Acc3 = [
-    new AccesoryExercise('Overhead press', [3, 10]),
+let pressBilateral = [
+    new AccesoryExercise('Overhead press barbell', [3, 10]),
+    new AccesoryExercise('Dumbell press', [3, 10]),
+    new AccesoryExercise('Kettlebell press', [3, 10]),
+];
+let upperBodySmallExercises = [
+    new AccesoryExercise('Shrugs', [3, 20]),
+    new AccesoryExercise('Lateral dumbell raise', [3, 10]),
+    new AccesoryExercise('Gate cable pulls', [3, 10]),
+    new AccesoryExercise('Scapulae depression and elevation while hanging', [3, 10]),
+    new AccesoryExercise('Scapulae protraction and retraction while in push-up position', [3, 10])
+];
+let abdomenAndLowerback = [
     new AccesoryExercise('Russian twists', [3, 20]),
-    new AccesoryExercise('shrugs', [3, 20])
+    new AccesoryExercise('Side crunch', [4, 20]),
+    new AccesoryExercise('Sit-ups', [3, 20]),
+    new AccesoryExercise('Toes to bar', [3, 10]),
+    new AccesoryExercise('Skin the cat', [3, 5]),
+    new AccesoryExercise('Classic deadlift', [3, 10]),
+    new AccesoryExercise('Sumo deadlift', [3, 10]),
+    new AccesoryExercise('Romanian deadlift', [3, 10]),
+    new AccesoryExercise('Trapbar deadlift', [3, 10]),
 ];
+let traversalAccesories = [
+    new AccesoryExercise('Farmer carry', [3, 10]),
+    new AccesoryExercise('Sled drag push', [3, 10]),
+    new AccesoryExercise('Sled drag pull', [3, 10]),
+];
+let plyometricLoad = [
+    new AccesoryExercise('Jump vertical', [3, 10]),
+    new AccesoryExercise('Jump forward', [3, 10]),
+    new AccesoryExercise('Lateral side to side lateral jump', [3, 10]),
+    new AccesoryExercise('Box jump', [3, 3]),
+    new AccesoryExercise('Box drops', [3, 10]),
+];
+let balisticLoad = [
+    new AccesoryExercise('Ball throw - floor', [3, 10]),
+    new AccesoryExercise('Ball throw - front', [3, 10]),
+    new AccesoryExercise('Ball throw - front rotation', [3, 10]),
+    new AccesoryExercise('Ball throw - upwards', [3, 10]),
+    new AccesoryExercise('Ball throw - floor side 2 side', [3, 10]),
+];
+let olympicWeightlifting = [
+    new AccesoryExercise('Snatch', [3, 3]),
+    new AccesoryExercise('Power snatch', [3, 20]),
+    new AccesoryExercise('Hang snatch', [3, 3]),
+    new AccesoryExercise('Drop snatch', [3, 3]),
+    new AccesoryExercise('Clean and jerk', [3, 3]),
+    new AccesoryExercise('Power clean', [3, 3]),
+];
+const overWriteWithTypeofMovement = () => {
+};
+const overWriteWithVariation = () => {
+};
+const loadAccesoriesIntoOverload = () => {
+};
+const randomPackLegsAsBasic = [playDice(lowerBodyUnilateral)[0], playDice(lowerBodyBilateral)[0], playDice(legsSmallExercises)[0]];
+const randomPackUpperBodyAndAbdomen = [playDice(pressBilateral)[0], playDice(abdomenAndLowerback)[0], playDice(armsHypetrophy)[0]];
+const randomPackUpperBodyChestAndArms = [playDice(PullExercises)[0], playDice(armsHypetrophy)[0], playDice(upperBodySmallExercises)[0]];
 const basicOverload = (Squat, Bench, Deadlift) => {
     let overLoadedArray = [
-        [progress4Strength('Squat', Squat, true, false, false), Acc1],
-        [progress4Volume('Bench', Bench, true, false, false), Acc2],
-        [progress4Strength('Deadlift', Deadlift, true, false, false), Acc3],
-        [progress4Volume('Squat', Squat, false, true, false), Acc1],
-        [progress4Strength('Bench', Bench, true, false, false), Acc2],
-        [progress4Volume('Deadlift', Deadlift, false, true, false), Acc3],
-        [progress4Strength('Squat', Squat, false, true, false), Acc1],
-        [progress4Volume('Bench', Bench, false, true, false), Acc2],
-        [progress4Strength('Deadlift', Deadlift, false, true, false), Acc3],
-        [progress4Volume('Squat', Squat, false, false, true), Acc1],
-        [progress4Strength('Bench', Bench, false, true, false), Acc2],
-        [progress4Volume('Deadlift', Deadlift, false, false, true), Acc3],
-        [progress4Strength('Squat', Squat, false, false, true), Acc1],
-        [progress4Volume('Bench', Bench, false, false, true), Acc2],
-        [progress4Strength('Deadlift', Deadlift, false, false, true), Acc3],
-        [progress4Volume('Squat', Squat, true, false, false), Acc1],
-        [progress4Strength('Bench', Bench, false, false, true), Acc2],
-        [progress4Volume('Deadlift', Deadlift, true, false, false), Acc3],
+        [progress4Strength('Squat', Squat, true, false, false), randomPackLegsAsBasic],
+        [progress4Volume('Bench', Bench, true, false, false), randomPackUpperBodyChestAndArms],
+        [progress4Strength('Deadlift', Deadlift, true, false, false), randomPackUpperBodyAndAbdomen],
+        [progress4Volume('Squat', Squat, false, true, false), randomPackLegsAsBasic],
+        [progress4Strength('Bench', Bench, true, false, false), randomPackUpperBodyChestAndArms],
+        [progress4Volume('Deadlift', Deadlift, false, true, false), randomPackUpperBodyAndAbdomen],
+        [progress4Strength('Squat', Squat, false, true, false), randomPackLegsAsBasic],
+        [progress4Volume('Bench', Bench, false, true, false), randomPackUpperBodyChestAndArms],
+        [progress4Strength('Deadlift', Deadlift, false, true, false), randomPackUpperBodyAndAbdomen],
+        [progress4Volume('Squat', Squat, false, false, true), randomPackLegsAsBasic],
+        [progress4Strength('Bench', Bench, false, true, false), randomPackUpperBodyChestAndArms],
+        [progress4Volume('Deadlift', Deadlift, false, false, true), randomPackUpperBodyAndAbdomen],
+        [progress4Strength('Squat', Squat, false, false, true), randomPackLegsAsBasic],
+        [progress4Volume('Bench', Bench, false, false, true), randomPackUpperBodyChestAndArms],
+        [progress4Strength('Deadlift', Deadlift, false, false, true), randomPackUpperBodyAndAbdomen],
+        [progress4Volume('Squat', Squat, true, false, false), randomPackLegsAsBasic],
+        [progress4Strength('Bench', Bench, false, false, true), randomPackUpperBodyChestAndArms],
+        [progress4Volume('Deadlift', Deadlift, true, false, false), randomPackUpperBodyAndAbdomen],
     ];
     return overLoadedArray;
 };
@@ -310,25 +450,16 @@ const freeFallProgression = (load) => {
 let paidTwiceArray = [];
 let paidTwiceArray1 = [];
 let paidTwiceArray2 = [];
-const playDice = (arr) => {
-    for (let i = arr.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * Math.floor(arr.length - 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-};
-let nonrepeating = [];
 const trackTheVolume = (overload) => {
-    let nag = [];
+    let totalLoadExerciseValue;
+    let totalOfLoad = [];
     overload.filter((e) => {
-        if (e.sets !== 0) {
-            e = e.sets * e.reps * e.intensity;
-            nag.push(e);
-        }
-        ;
+        totalLoadExerciseValue = e[0].load[0][0] * e[0].load[0][1] * e[0].load[0][2];
+        totalOfLoad.push(totalLoadExerciseValue);
     });
-    return nag.reduce((acc, cur) => acc + cur);
+    return totalOfLoad.reduce((acc, cur) => acc + cur);
 };
+console.log(trackTheVolume(z));
 const chooseFromVolume = (overload) => {
     const highestVol = overload.filter((a) => {
         return a.sets === 3;
