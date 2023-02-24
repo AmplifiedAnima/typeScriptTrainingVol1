@@ -3,6 +3,7 @@
 
 type num = number|number[]|[number]|[number[]]|{}|{}[]|[{}]|string|string[]|[string]|[string[]];
 
+type stringOrStrings = string | string[]
 
 // building block for training unit
 
@@ -41,10 +42,11 @@ class AccesoryExercise {
     pauses?: num;
     TypesOfMovement?: TypesOfMovement;
 
-    constructor(accesory:string, load:num, muscleGroupEngaded?: MuscleGroups | MuscleGroups[]) {
+    constructor(accesory:string, load:num, muscleGroupEngaded?: MuscleGroups | MuscleGroups[], TypesOfMovement?: TypesOfMovement) {
         this.accesory = accesory, 
         this.load = load
         this.muscleGroupEngaded = muscleGroupEngaded;
+        this.TypesOfMovement = TypesOfMovement;
      
     }
 } 
@@ -63,31 +65,31 @@ class MetabolicStress {
         this.distance = distance
     }
 }
- 
+
 class MuscleGroups {
  
-    calves: string;
-    tibialis: string;
-    hamstrings: string;
-    quadriceps: string;
-    glutes: string;
+    calves?: stringOrStrings;
+    tibialis?: stringOrStrings;
+    hamstrings?: stringOrStrings;
+    quadriceps?: stringOrStrings;
+    glutes?: stringOrStrings;
 
-    abdominals: string;
-    obliques: string;
-    lowerback: string;
+    abdominals?: stringOrStrings;
+    obliques?: stringOrStrings;
+    lowerback?: stringOrStrings;
  
-    chest: string;
-    upperbackAndScapula: string;
-    shoulders: string;
-    biceps: string;
-    triceps: string;
-    forearm: string;
+    chest?: stringOrStrings;
+    upperbackAndScapula?: stringOrStrings;
+    shoulders?: stringOrStrings;
+    biceps?: stringOrStrings;
+    triceps?: stringOrStrings;
+    forearm?: stringOrStrings;
  
-    constructor(
-        calves: string,  tibialis:string, hamstrings: string, quadriceps: string, glutes: string,
-        abdominals: string, obliques:string, lowerback: string,
-        chest: string,     upperbackAndScapula: string, shoulders: string,
-        biceps: string, triceps: string, forearm: string) {
+    public constructor(
+        calves?: stringOrStrings,  tibialis?: stringOrStrings, hamstrings?: stringOrStrings, quadriceps?: stringOrStrings, glutes?: stringOrStrings,
+        abdominals?: stringOrStrings, obliques?: stringOrStrings, lowerback?: stringOrStrings,
+        chest?: stringOrStrings,     upperbackAndScapula?: stringOrStrings, shoulders?: stringOrStrings,
+        biceps?: stringOrStrings, triceps?: stringOrStrings, forearm?: stringOrStrings) {
             //legs
             this.calves = calves
             this.tibialis = tibialis;
@@ -107,8 +109,16 @@ class MuscleGroups {
             this.triceps = triceps;
             this.forearm = forearm;
         }
+    
 }
 
+class MusclesInvolvedInExercise {
+    muscleGroupsEngaged: MuscleGroups| MuscleGroups[]
+
+    constructor(muscleGroupsEngaged: MuscleGroups | MuscleGroups[]) {
+        this.muscleGroupsEngaged = muscleGroupsEngaged
+    }
+}
 class TypesOfTraining { 
 
     strength: string;
@@ -121,21 +131,20 @@ class TypesOfTraining {
     constructor(
         strength: string,
         speed: string,
-        power: string,
-        agility: string, 
+        power: string, 
         anaerobicCapacity: string,
         aerobicCpacity: string) {
 
         this.strength = strength;
         this.speed = speed;
         this.power = power;
-        this.agility = agility;
         this.anaerobicCapacity = anaerobicCapacity;
         this.aerobicCapacity = aerobicCpacity;
     }
 }
 
 class TypesOfMovement { 
+
     standing: string;
     bilateral: string;
     unilateral: string;
@@ -301,20 +310,21 @@ form4Load4?.addEventListener('submit', (e)=> {
    
     const Projection: string[]|string|any= array.map((element: any, index: number ) => {
 
-        let firstExerciseLoad = element[0].load[0]
-        let secondExerciseLoad = element[0].load[1]
-        let thirdExerciseLoad = element[0].load[2]
-        let firstExerciseLoadAccesory = element[1][0].load
-        let secondExerciseLoadAccesory = element[1][1].load
-        let thirdExerciseLoadAccesory = element[1][2].load
+        let firstExerciseLoad: number[] = element[0].load[0]
+        let secondExerciseLoad: number[] = element[0].load[1]
+        let thirdExerciseLoad: number[] = element[0].load[2]
+        let firstExerciseLoadAccesory: number[] = element[1][0].load
+        let secondExerciseLoadAccesory: number[] = element[1][1].load
+        let thirdExerciseLoadAccesory: number[] = element[1][2].load
 
-        // const volumeTrackerMini = (overload: any) => {
-        //     let totalExerciseLoad:any = overload[0] * overload[1] * overload[2]
-        //     return totalExerciseLoad.reduce((acc: number,cur: number) => acc + cur);
-        // }
-        // console.log(volumeTrackerMini(firstExerciseLoad))
-        // console.log(volumeTrackerMini(secondExerciseLoad))
-        // console.log(volumeTrackerMini(thirdExerciseLoad))
+        const volumeTrackerMini = (overload: any) => {
+            let totalExerciseLoad:any = overload[0] * overload[1] * overload[2]
+            // key to counting load
+                return Math.round(totalExerciseLoad)
+            // sum it up with  .reduce((acc: number,cur: number) => acc + cur);
+        }
+
+        console.log(volumeTrackerMini(firstExerciseLoad))
         let table: string = ''
         table +=`  
                 <tr>
@@ -495,14 +505,19 @@ const progress4Volume = (mainExercise: string, repMax: number, int65plus: boolea
 };
 
 // find a way to randomize it if user needs
+// find possibility to allow user to fuck around different types of loading like triphasic (gpp , acc , peak phases)
+// find a way for user to try again with plan/projection in seconds
 // first you have to connect exercises to specific muscle groups to make sense out of randomization
 // need 2 categorize data for beginner/ intermediate
+// categorize exercises by appending a them a property of muscle targeted/involed in exercise
 // exercises names , and load have to be mutable
+
 let mainExercises = [
-    new AccesoryExercise('Squat',[3,10]),
+    new AccesoryExercise('Squat',[3,10],new MuscleGroups()),
     new AccesoryExercise('Deadlift',[3,10]),
     new AccesoryExercise('Benchpress',[3,10])
 ]
+console.log(mainExercises)
 
 let lowerBodyUnilateral = [
     //unilateral
@@ -513,9 +528,11 @@ let lowerBodyUnilateral = [
     new AccesoryExercise('Cossack squat full ROM',[4,10]),
     new AccesoryExercise('Single-legged romanian deadlift',[4,10]),
     new AccesoryExercise('Staggered-stance romanian deadlift',[4,10]),
+    new AccesoryExercise('Hip thrust - one side only',[3,10]),
     new AccesoryExercise('Box step-ups',[4,10]),
     new AccesoryExercise('Single leg squats',[4,10]),
-    new AccesoryExercise('Poliquin step-up',[4,10])]
+    new AccesoryExercise('Poliquin step-up',[4,10])
+]
 
 let lowerBodyBilateral = [
 
@@ -524,35 +541,35 @@ let lowerBodyBilateral = [
     new AccesoryExercise('Box squat',[3,10]),
     new AccesoryExercise('Pin squat',[3,10]),
     new AccesoryExercise('Hack squat',[3,10]),
-    new AccesoryExercise('Overhead squat',[3,10])
-
+    new AccesoryExercise('Overhead squat',[3,10]),
+    new AccesoryExercise('Hip thrust',[3,10]),
+    new AccesoryExercise('',[3,10]),
 ]
+
 
 let legsSmallExercises = [
     new AccesoryExercise('Calf raises',[3,10]),
     new AccesoryExercise('Single-leg Calf raises',[4,10]),
     new AccesoryExercise('Tibialis raises',[3,10]),
-    new AccesoryExercise('',[3,10]),
+    new AccesoryExercise('Copenhagen adductor raise',[2,10]),
 ]
 
-let jointConditioningFRC = [
-
-    new AccesoryExercise('Hip full ROM rotations lying on the side',[3,10]),
-    new AccesoryExercise('Hip full ROM rotations while standing',[3,10]),
+let abdomenAndLowerback = [
+    //core
+        new AccesoryExercise('Russian twists',[3,20]),
+        new AccesoryExercise('Side crunch',[4,20]),
+        new AccesoryExercise('Sit-ups',[3,20]),
+        new AccesoryExercise('Toes to bar',[3,10]),
+        new AccesoryExercise('Skin the cat',[3,5]),
+        new AccesoryExercise('Classic deadlift',[3,10]),
+        new AccesoryExercise('Sumo deadlift',[3,10]),
+        new AccesoryExercise('Romanian deadlift',[3,10]),
+        new AccesoryExercise('Trapbar deadlift',[3,10]),
 ]
+    
 
-let hardstyleSfgSpecific = [
-//sfg - kettlebell specific
-    new AccesoryExercise('Swing',[3,10]),
-    new AccesoryExercise('One arm swing',[3,10]),
-    new AccesoryExercise('Turkish get-up',[3,10]),
-    new AccesoryExercise('Bent press',[3,10]),
-    new AccesoryExercise('Windmill',[3,10]),
-    new AccesoryExercise('One arm kettlebell snatch',[3,10]),
-    new AccesoryExercise('One arm dumbell snatch',[3,10]),
-] 
 
-let PullExercises = [
+let pullExercisesBodyweight = [
     //static arms
     //bilateral
     new AccesoryExercise('Push-ups',[3,10]),
@@ -562,9 +579,25 @@ let PullExercises = [
     new AccesoryExercise('Chin-ups',[3,10]),
 ]
 
+let pullExercisesButMoreAccesible = [
+    new AccesoryExercise('Face cable pull',[3,10]),
+    new AccesoryExercise('Cable pull vertical',[3,10]),
+    new AccesoryExercise('Barbell Bent Over Row',[3,10]),
+    new AccesoryExercise('Dumbbell Bent Over Row',[3,10]),
+    new AccesoryExercise('One Arm Dumbbell Row',[3,10]),
+    new AccesoryExercise('Pendley Row',[3,10]),
+]
+
+let pushExercises = [
+    new AccesoryExercise('Dips',[3,10]),
+    new AccesoryExercise('Dumbell floor press',[3,10]),
+    new AccesoryExercise('Barbell floor press',[3,10]),
+    new AccesoryExercise('Benchpress',[3,10]),
+]
+
 let isometricsAndHangs = [
     new AccesoryExercise('Deadhangs',[3,10]),
-    new AccesoryExercise('Plank',[3,20]),
+    new AccesoryExercise('Forearm plank',[3,20]),
     new AccesoryExercise('Side-plank',[3,20]),
     new AccesoryExercise('Reverse gymnastic plank',[3,10]),
     new AccesoryExercise('Push-up position hold',[3,20]),
@@ -576,15 +609,21 @@ let armsHypetrophy = [
     new AccesoryExercise('Bicep curls',[3,10]),
     new AccesoryExercise('Bicep curls',[3,10]),
     new AccesoryExercise('Skull crushers',[3,10]),
+    new AccesoryExercise('Wrist curls and extensions',[3,10]),
 ]
 
-    
 let pressBilateral = [
     //bilateral
     new AccesoryExercise('Overhead press barbell',[3,10]),
-    new AccesoryExercise('Dumbell press',[3,10]),
-    new AccesoryExercise('Kettlebell press',[3,10]),
+    new AccesoryExercise('Overhead Dumbell press',[3,10]),
+    new AccesoryExercise('Overhead Kettlebell press',[3,10]),
+   ]
 
+let pressUnilateral = [
+    //bilateral
+    new AccesoryExercise('Overhead press barbell',[3,10]),
+    new AccesoryExercise('Overhead Dumbell press',[3,10]),
+    new AccesoryExercise('Overhead Kettlebell press',[3,10]),
    ]
 
 let upperBodySmallExercises = [
@@ -596,24 +635,10 @@ let upperBodySmallExercises = [
     new AccesoryExercise('Scapulae protraction and retraction while in push-up position',[3,10])
 ]
 
-let abdomenAndLowerback = [
-//core
-    new AccesoryExercise('Russian twists',[3,20]),
-    new AccesoryExercise('Side crunch',[4,20]),
-    new AccesoryExercise('Sit-ups',[3,20]),
-    new AccesoryExercise('Toes to bar',[3,10]),
-    new AccesoryExercise('Skin the cat',[3,5]),
-    new AccesoryExercise('Classic deadlift',[3,10]),
-    new AccesoryExercise('Sumo deadlift',[3,10]),
-    new AccesoryExercise('Romanian deadlift',[3,10]),
-    new AccesoryExercise('Trapbar deadlift',[3,10]),
-]
-
 let traversalAccesories = [
     new AccesoryExercise('Farmer carry',[3,10]),
     new AccesoryExercise('Sled drag push',[3,10]),
     new AccesoryExercise('Sled drag pull',[3,10]),
-
 ]
 
 let plyometricLoad = [
@@ -632,7 +657,21 @@ let balisticLoad = [
     new AccesoryExercise('Ball throw - floor side 2 side',[3,10]),
   
 ]
+let jointConditioningFRC = [
 
+    new AccesoryExercise('Hip full ROM rotations lying on the side',[3,10]),
+    new AccesoryExercise('Hip full ROM rotations while standing',[3,10]),
+]
+let hardstyleSfgSpecific = [
+//sfg - kettlebell specific
+    new AccesoryExercise('Swing',[3,10]),
+    new AccesoryExercise('One arm swing',[3,10]),
+    new AccesoryExercise('Turkish get-up',[3,10]),
+    new AccesoryExercise('Bent press',[3,10]),
+    new AccesoryExercise('Windmill',[3,10]),
+    new AccesoryExercise('One arm kettlebell snatch',[3,10]),
+    new AccesoryExercise('One arm dumbell snatch',[3,10]),
+] 
 let olympicWeightlifting = [
 
     new AccesoryExercise('Snatch',[3,3]),
@@ -642,25 +681,19 @@ let olympicWeightlifting = [
     new AccesoryExercise('Clean and jerk',[3,3]),
     new AccesoryExercise('Power clean',[3,3]),
 ]
-const overWriteWithTypeofMovement = () => {
-
+const filter4Beginner = () => {
+    // I can filter them through properties of muscles , movement type , involvement of load outside of BW
+    // define bodyweight more
+    //define heartrate etc.
 }
-
-const overWriteWithVariation = () => {
-
-}
-
-const loadAccesoriesIntoOverload = () => {
-
-}
- 
+// this could be filtered through some type of user variable
 const randomPackLegsAsBasic = [playDice(lowerBodyUnilateral)[0],playDice(lowerBodyBilateral)[0],playDice(legsSmallExercises)[0]]
 const randomPackUpperBodyAndAbdomen = [playDice(pressBilateral)[0],playDice(abdomenAndLowerback)[0],playDice(armsHypetrophy)[0]]
-const randomPackUpperBodyChestAndArms = [playDice(PullExercises)[0],playDice(armsHypetrophy)[0],playDice(upperBodySmallExercises)[0]]
+const randomPackUpperBodyChestAndArms = [playDice(pullExercisesBodyweight)[0],playDice(pullExercisesButMoreAccesible)[0],playDice(pushExercises)[0]]
 
 
 // This has to be learned and improved upon 
-// try to classify this as upperbody compount, lowerbody compound, leg compound
+// try to classify this as upperbody compound, lowerbody compound, leg compound
 const basicOverload = (Squat: number, Bench: number, Deadlift: number): {}[] => {
 
     let overLoadedArray = [  
@@ -732,10 +765,6 @@ const trackTheVolume = (overload: {}[]) => {
     });
     return totalOfLoad.reduce((acc: number,cur: number) => acc + cur);
 };
-// .load[1][0])} kg </h4></td>
-//                 <td><h5>${element[0].load[1][1]}</h5></td>
-//                 <td></td>
-//                 <td><h5>${element[0].load[1][2]}</h5></td>
 console.log(trackTheVolume(z))
 
 
