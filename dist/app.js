@@ -1,11 +1,4 @@
 "use strict";
-class TrainingUnit {
-    constructor(MainExercise, Accesories, MetabolicStress) {
-        this.MainExercise = MainExercise;
-        this.Accesories = Accesories;
-        this.MetabolicStress = MetabolicStress;
-    }
-}
 class MainExercise {
     constructor(mainExercise, load, MusclesInvolvedInExercise, TypesOfMovement) {
         this.mainExercise = mainExercise;
@@ -33,47 +26,6 @@ class MetabolicStress {
 class MusclesInvolvedInExercise {
     constructor(muscleGroupsEngaged) {
         this.muscleGroupsEngaged = muscleGroupsEngaged;
-    }
-}
-class TypesOfTraining {
-    constructor(strength, speed, power, anaerobicCapacity, aerobicCpacity) {
-        this.strength = strength;
-        this.speed = speed;
-        this.power = power;
-        this.anaerobicCapacity = anaerobicCapacity;
-        this.aerobicCapacity = aerobicCpacity;
-    }
-}
-class TypesOfMovement {
-    constructor(standing, bilateral, unilateral, lateral, rotational, traversal, plyometric, balistic) {
-        this.standing = standing;
-        this.bilateral = bilateral;
-        this.unilateral = unilateral;
-        this.lateral = lateral;
-        this.rotational = rotational;
-        this.traversal = traversal;
-        this.plyometric = plyometric;
-        this.balistic = balistic;
-    }
-}
-class Tools4Exercises {
-    constructor(normalBarbell, trapBar, openTrapBar, cumberedBar, safetyBar, landmineHalfOfBarbell, dumbBells, kettleBells, platesAndBumpers, bulgarianBag, balls, gymnasticRings, TRX, ropes, resistanceBand, slantboard) {
-        this.normalBarbell = normalBarbell;
-        this.trapBar = trapBar;
-        this.openTrapBar = openTrapBar;
-        this.cumberedBar = cumberedBar;
-        this.safetyBar = safetyBar;
-        this.landmineHalfOfBarbell = landmineHalfOfBarbell;
-        this.dumbBells = dumbBells;
-        this.kettleBells = kettleBells;
-        this.platesAndBumpers = platesAndBumpers;
-        this.bulgarianBag = bulgarianBag;
-        this.balls = balls;
-        this.gymnasticRings = gymnasticRings;
-        this.TRX = TRX;
-        this.ropes = ropes;
-        this.resistanceBand = resistanceBand;
-        this.slantboard = slantboard;
     }
 }
 const form4Load4 = document.getElementById('MainLoad');
@@ -273,9 +225,9 @@ let mainExercises = [
 ];
 console.log(mainExercises);
 let lowerBodyUnilateral = [
-    new AccesoryExercise('Bulgarian split squat', [4, 10]),
-    new AccesoryExercise('Lunge backwards', [4, 10]),
-    new AccesoryExercise('Lunge forward', [4, 10]),
+    new AccesoryExercise('Bulgarian split squat', [4, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
+    new AccesoryExercise('Lunge backwards', [4, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
+    new AccesoryExercise('Lunge forward', [4, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
     new AccesoryExercise('Lunge lateral (partial cossack squat)', [4, 10]),
     new AccesoryExercise('Cossack squat full ROM', [4, 10]),
     new AccesoryExercise('Single-legged romanian deadlift', [4, 10]),
@@ -358,14 +310,14 @@ let pressUnilateral = [
     new AccesoryExercise('Overhead Kettlebell press', [3, 10]),
 ];
 let upperBodySmallExercises = [
-    new AccesoryExercise('Shrugs', [3, 20]),
-    new AccesoryExercise('Lateral dumbell raise', [3, 10]),
-    new AccesoryExercise('Gate cable pulls', [3, 10]),
-    new AccesoryExercise('Scapulae depression and elevation while hanging', [3, 10]),
-    new AccesoryExercise('Scapulae protraction and retraction while in push-up position', [3, 10])
+    new AccesoryExercise('Shrugs', [3, 20], ['traps', 'forearm']),
+    new AccesoryExercise('Lateral dumbell raise', [3, 10], ['shoulders']),
+    new AccesoryExercise('Gate cable pulls', [3, 10], ['chest']),
+    new AccesoryExercise('Scapulae depression and elevation while hanging', [3, 10]), ['upperbody', 'scapulae'], ['isometric', 'bilateral'],
+    new AccesoryExercise('Scapulae protraction and retraction while in push-up position', [3, 10], ['upperbody', 'scapulae'], ['isometric', 'bilateral'])
 ];
 let traversalAccesories = [
-    new AccesoryExercise('Farmer carry', [3, 10]),
+    new AccesoryExercise('Farmer carry', [3, 10], ['obliques', 'lowerbody', 'legs', 'arms', 'abdominals'], ['traversal', 'bilateral', 'carry']),
     new AccesoryExercise('Sled drag push', [3, 10]),
     new AccesoryExercise('Sled drag pull', [3, 10]),
 ];
