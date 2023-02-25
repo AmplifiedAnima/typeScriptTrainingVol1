@@ -25,12 +25,14 @@ class MainExercise {
     load: num;
 
     typeOfMovement?: TypesOfMovement;
-    exerciseVariation?: ExerciseVariations;
-
-    constructor(mainExercise: string, load: num) {
+    exerciseVariation?: string | string[];
+    MusclesInvolvedInExercise?: string | string[];
+    TypesOfMovement?: string | string[];
+    constructor(mainExercise: string, load: num,MusclesInvolvedInExercise?: string | string[], TypesOfMovement?: string | string[]) {
         this.mainExercise = mainExercise;
         this.load = load;
-
+        this.MusclesInvolvedInExercise = MusclesInvolvedInExercise;
+        this.TypesOfMovement = TypesOfMovement;
     }
 }
 
@@ -38,14 +40,14 @@ class AccesoryExercise {
 
     accesory: string | string[];
     load: num;
-    muscleGroupEngaded?: MuscleGroups | MuscleGroups[];
+    MusclesInvolvedInExercise?: string | string[]
     pauses?: num;
-    TypesOfMovement?: TypesOfMovement;
+    TypesOfMovement?: string | string[];
 
-    constructor(accesory:string, load:num, muscleGroupEngaded?: MuscleGroups | MuscleGroups[], TypesOfMovement?: TypesOfMovement) {
+    constructor(accesory:string, load:num, MusclesInvolvedInExercise?: string | string[], TypesOfMovement?: string | string[]) {
         this.accesory = accesory, 
         this.load = load
-        this.muscleGroupEngaded = muscleGroupEngaded;
+        this.MusclesInvolvedInExercise = MusclesInvolvedInExercise;
         this.TypesOfMovement = TypesOfMovement;
      
     }
@@ -66,56 +68,11 @@ class MetabolicStress {
     }
 }
 
-class MuscleGroups {
- 
-    calves?: stringOrStrings;
-    tibialis?: stringOrStrings;
-    hamstrings?: stringOrStrings;
-    quadriceps?: stringOrStrings;
-    glutes?: stringOrStrings;
-
-    abdominals?: stringOrStrings;
-    obliques?: stringOrStrings;
-    lowerback?: stringOrStrings;
- 
-    chest?: stringOrStrings;
-    upperbackAndScapula?: stringOrStrings;
-    shoulders?: stringOrStrings;
-    biceps?: stringOrStrings;
-    triceps?: stringOrStrings;
-    forearm?: stringOrStrings;
- 
-    public constructor(
-        calves?: stringOrStrings,  tibialis?: stringOrStrings, hamstrings?: stringOrStrings, quadriceps?: stringOrStrings, glutes?: stringOrStrings,
-        abdominals?: stringOrStrings, obliques?: stringOrStrings, lowerback?: stringOrStrings,
-        chest?: stringOrStrings,     upperbackAndScapula?: stringOrStrings, shoulders?: stringOrStrings,
-        biceps?: stringOrStrings, triceps?: stringOrStrings, forearm?: stringOrStrings) {
-            //legs
-            this.calves = calves
-            this.tibialis = tibialis;
-            this.hamstrings = hamstrings;
-            this.quadriceps = quadriceps;
-            this.glutes = glutes;
-            //trunk (***could be called core)
-            this.abdominals = abdominals;
-            this.obliques = obliques;
-            this.lowerback = lowerback;
-            //upperbody
-            this.chest = chest;
-            this.upperbackAndScapula = upperbackAndScapula;
-            this.shoulders = shoulders;
-            //arms
-            this.biceps = biceps;
-            this.triceps = triceps;
-            this.forearm = forearm;
-        }
-    
-}
 
 class MusclesInvolvedInExercise {
-    muscleGroupsEngaged: MuscleGroups| MuscleGroups[]
+    muscleGroupsEngaged: string | string[] | []
 
-    constructor(muscleGroupsEngaged: MuscleGroups | MuscleGroups[]) {
+    constructor(muscleGroupsEngaged: string | string[]) {
         this.muscleGroupsEngaged = muscleGroupsEngaged
     }
 }
@@ -173,31 +130,7 @@ class TypesOfMovement {
     }
 }
 
-class ExerciseVariations {
 
-    isometrics: string; 
-    prolongedEccentricPhase: string;
-    prolongedConentricPhase: string;
-    pausesDuringRep: string;
-    oneAndHalfRep: string;
-    explosive: string;
-
-    constructor(
-        isometrics: string, 
-        prolongedEccentricPhase: string,
-        prolongedConentricPhase: string,
-        pausesDuringRep: string,
-        oneAndHalfRep: string,
-        explosive: string ) {
-
-            this.isometrics = isometrics;
-            this.prolongedEccentricPhase = prolongedEccentricPhase;
-            this.prolongedConentricPhase = prolongedConentricPhase;
-            this.pausesDuringRep = pausesDuringRep;
-            this.oneAndHalfRep = oneAndHalfRep;
-            this.explosive = explosive;
-        }
-}
 
 class Tools4Exercises {
     // barbells 
@@ -513,9 +446,9 @@ const progress4Volume = (mainExercise: string, repMax: number, int65plus: boolea
 // exercises names , and load have to be mutable
 
 let mainExercises = [
-    new AccesoryExercise('Squat',[3,10],new MuscleGroups()),
-    new AccesoryExercise('Deadlift',[3,10]),
-    new AccesoryExercise('Benchpress',[3,10])
+    new MainExercise('Squat',[3,10],['calves', 'tibialis', 'quadriceps', 'hamstrings','glutes', 'lowerback', 'abdominals'],['squat', 'bilateral']),
+    new MainExercise('Deadlift',[3,10],['calves',' hamstrings', 'lowerback', 'glutes', 'abdominals', 'arms', 'forearms'],['hinge', 'bilateral']),
+    new MainExercise('Benchpress',[3,10],['chest','shoulders', 'arms', 'triceps', 'forearms',],['push','bilateral'])
 ]
 console.log(mainExercises)
 
@@ -607,7 +540,7 @@ let isometricsAndHangs = [
 let armsHypetrophy = [
     // unilateral/bilateral
     new AccesoryExercise('Bicep curls',[3,10]),
-    new AccesoryExercise('Bicep curls',[3,10]),
+    new AccesoryExercise('Bicep curls neutral grip dumbells',[3,10]),
     new AccesoryExercise('Skull crushers',[3,10]),
     new AccesoryExercise('Wrist curls and extensions',[3,10]),
 ]
