@@ -1,10 +1,10 @@
 "use strict";
 class MainExercise {
-    constructor(mainExercise, load, MusclesInvolvedInExercise, TypesOfMovement) {
+    constructor(mainExercise, load, MusclesInvolvedInExercise, typesOfMovement) {
         this.mainExercise = mainExercise;
         this.load = load;
         this.MusclesInvolvedInExercise = MusclesInvolvedInExercise;
-        this.TypesOfMovement = TypesOfMovement;
+        this.typesOfMovement = typesOfMovement;
     }
 }
 class AccesoryExercise {
@@ -79,6 +79,11 @@ form4Load4 === null || form4Load4 === void 0 ? void 0 : form4Load4.addEventListe
                 </tr>
                 <tr>
                 <td><h4> Main exercise : ${element[0].mainExercise}<h4></td>
+                <td>               <small> Muscles involved : ${element[0].MusclesInvolvedInExercise}</small>
+                </td>
+ 
+                </tr>
+                <tr>
                 </tr>
                 <td><h5>Intensity <h5></td>
                 <td><h5>Sets <h5></td>
@@ -103,23 +108,25 @@ form4Load4 === null || form4Load4 === void 0 ? void 0 : form4Load4.addEventListe
                 <td><h5>${thirdExerciseLoad[2]}</h5></td>
                 </tr>
                 <tr>
-                <td><h4> Accesory I: ${element[1][0].accesory}</h4></td>
+                <td><h4> Accesory I: ${element[1][0].accesory} </h4></td>
                 <td><h5>${firstExerciseLoadAccesory[0]}</h5></td>
                 <td></td>
                 <td><h5>${firstExerciseLoadAccesory[1]}</h5></td>
+                <td><small> Muscles involved : ${element[1][0].MusclesInvolvedInExercise} </small></td>
                 </tr>   
                 <tr>
-                <td><h4> Accesory II: ${element[1][1].accesory} </h4></td>
+                <td><h4> Accesory II: ${element[1][1].accesory} </h4></h4></td>
                 <td><h5>${secondExerciseLoadAccesory[0]}</h5></td>
                 <td></td>
                 <td><h5>${secondExerciseLoadAccesory[1]}</h5></td>
+                <td><small> Muscles involved : ${element[1][1].MusclesInvolvedInExercise} </small></td>
                 </tr>
                 <tr>
-                <td><h4> Accesory III: ${element[1][2].accesory} </h4></td>
+                <td><h4> Accesory III: ${element[1][2].accesory} </h4> </td>
                 <td><h5>${thirdExerciseLoadAccesory[0]}</h5></td>
                 <td></td>
                 <td><h5>${thirdExerciseLoadAccesory[1]}</h5></td>
-                <td></td>
+                <td><small> Muscles involved : ${element[1][1].MusclesInvolvedInExercise} </small></td>
                 </tr>
                 <td></td>
                 <tr>
@@ -188,102 +195,110 @@ const lockAndLoadForAccesories = () => {
 let load;
 let intensity;
 let newMainExercise;
-const progress4Strength = (mainExercise, repMax, int80plus, int88plus, int95plus) => {
+const progress4Strength = (mainExercise, repMax, int80plus, int88plus, int95plus, MusclesInvolvedInExercise, typesOfMovement) => {
     if (int80plus == true && int88plus == false && int95plus == false) {
         load = lockAndLoad([repMax * 0.8, repMax * 0.825, repMax * 0.85], 5, 5);
-        return newMainExercise = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load, MusclesInvolvedInExercise, typesOfMovement);
     }
     if (int80plus == false && int88plus == true && int95plus == false) {
-        load = lockAndLoad([repMax * 0.875, repMax * 0.9, repMax * 0.925], 6, 3);
-        return newMainExercise = new MainExercise(mainExercise, load);
+        load = lockAndLoad([repMax * 0.85, repMax * 0.875, repMax * 0.9], 6, 3);
+        return newMainExercise = new MainExercise(mainExercise, load, MusclesInvolvedInExercise, typesOfMovement);
     }
     if (int80plus == false && int88plus == false && int95plus == true) {
-        load = lockAndLoad([repMax * 0.90, repMax * 0.925, repMax * 0.95], 7, 2);
-        return newMainExercise = new MainExercise(mainExercise, load);
+        load = lockAndLoad([repMax * 0.875, repMax * 0.9, repMax * 0.925], 7, 2);
+        return newMainExercise = new MainExercise(mainExercise, load, MusclesInvolvedInExercise, typesOfMovement);
     }
     return newMainExercise;
 };
-const progress4Volume = (mainExercise, repMax, int65plus, int70plus, int75plus) => {
+const progress4Volume = (mainExercise, repMax, int65plus, int70plus, int75plus, MusclesInvolvedInExercise, typesOfMovement) => {
     if (int65plus == true && int70plus == false && int75plus == false) {
         load = lockAndLoad([repMax * 0.65, repMax * 0.6750, repMax * 0.70], 3, 12);
-        return newMainExercise = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load, MusclesInvolvedInExercise, typesOfMovement);
     }
     if (int65plus == false && int70plus == true && int75plus == false) {
         load = lockAndLoad([repMax * 0.7, repMax * 0.7250, repMax * 0.75], 3, 10);
-        return newMainExercise = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load, MusclesInvolvedInExercise, typesOfMovement);
     }
     if (int65plus == false && int70plus == false && int75plus == true) {
         load = lockAndLoad([repMax * 0.75, repMax * 0.7750, repMax * 0.8], 3, 8);
-        return newMainExercise = new MainExercise(mainExercise, load);
+        return newMainExercise = new MainExercise(mainExercise, load, MusclesInvolvedInExercise, typesOfMovement);
     }
     return newMainExercise;
 };
+let squatExerciseMain = new MainExercise('Squat', [], ['calves', 'tibialis', 'quadriceps', 'glutes', 'lowerback', 'abdominals'], ['squat', 'bilateral']);
+let deadliftExerciseMain = new MainExercise('Deadlift', [], ['calves', 'hamstrings', 'lowerback', 'glutes', 'abdominals', 'arms', 'forearms'], ['hinge', 'bilateral']);
+let benchPressExerciseMain = new MainExercise('Benchpress', [], ['forearm', 'arms', 'upperbody', 'chest', 'shoulders'], ['push', 'bilateral']);
 let mainExercises = [
-    new MainExercise('Squat', [3, 10], ['calves', 'tibialis', 'quadriceps', 'hamstrings', 'glutes', 'lowerback', 'abdominals'], ['squat', 'bilateral']),
-    new MainExercise('Deadlift', [3, 10], ['calves', ' hamstrings', 'lowerback', 'glutes', 'abdominals', 'arms', 'forearms'], ['hinge', 'bilateral']),
-    new MainExercise('Benchpress', [3, 10], ['chest', 'shoulders', 'arms', 'triceps', 'forearms',], ['push', 'bilateral'])
+    squatExerciseMain,
+    deadliftExerciseMain,
+    benchPressExerciseMain
 ];
 console.log(mainExercises);
 let lowerBodyUnilateral = [
-    new AccesoryExercise('Bulgarian split squat', [4, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
-    new AccesoryExercise('Lunge backwards', [4, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
-    new AccesoryExercise('Lunge forward', [4, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
-    new AccesoryExercise('Lunge lateral (partial cossack squat)', [4, 10]),
-    new AccesoryExercise('Cossack squat full ROM', [4, 10]),
-    new AccesoryExercise('Single-legged romanian deadlift', [4, 10]),
-    new AccesoryExercise('Staggered-stance romanian deadlift', [4, 10]),
-    new AccesoryExercise('Hip thrust - one side only', [3, 10]),
-    new AccesoryExercise('Box step-ups', [4, 10]),
-    new AccesoryExercise('Single leg squats', [4, 10]),
-    new AccesoryExercise('Poliquin step-up', [4, 10])
+    new AccesoryExercise('Bulgarian split squat', [2, 10], ['quadriceps', 'calves', 'tibialis'], ['lunge', 'unilateral']),
+    new AccesoryExercise('Lunge backwards', [2, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
+    new AccesoryExercise('Lunge forward', [2, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
+    new AccesoryExercise('Lunge lateral (partial cossack squat)', [3, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
+    new AccesoryExercise('Cossack squat full ROM', [3, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['lunge', 'unilateral']),
+    new AccesoryExercise('Single-legged romanian deadlift', [2, 10], ['hamstrings', 'calves', 'tibialis'], ['hinge', 'unilateral']),
+    new AccesoryExercise('Staggered-stance romanian deadlift', [2, 10], ['hamstrings', 'quadriceps', 'calves', 'tibialis'], ['hinge', 'unilateral']),
+    new AccesoryExercise('Hip thrust - one side only', [2, 10], ['glutes', 'hamstrings', 'calves', 'tibialis'], ['hinge', 'unilateral']),
+    new AccesoryExercise('Box step-ups', [3, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['hinge', 'unilateral']),
+    new AccesoryExercise('Single leg squats', [2, 10], ['quadriceps', 'calves', 'tibialis'], ['hinge', 'unilateral']),
+    new AccesoryExercise('Poliquin step-up', [2, 10], ['quadriceps', 'hamstrings', 'calves', 'tibialis'], ['hinge', 'unilateral']),
 ];
+const squatMusclesInvolvement = ['quadriceps', 'calves', 'tibialis', 'glutes', 'lowerback', 'abdominals'];
+const deadliftMusclesInvolvment = ['hamstrings', 'glutes', 'lowerback', 'abdominals', 'calves', 'tibialis', 'traps'];
 let lowerBodyBilateral = [
-    new AccesoryExercise('Back squat', [3, 10]),
-    new AccesoryExercise('Front squat', [3, 10]),
-    new AccesoryExercise('Box squat', [3, 10]),
-    new AccesoryExercise('Pin squat', [3, 10]),
-    new AccesoryExercise('Hack squat', [3, 10]),
-    new AccesoryExercise('Overhead squat', [3, 10]),
-    new AccesoryExercise('Hip thrust', [3, 10]),
-    new AccesoryExercise('', [3, 10]),
+    new AccesoryExercise('Back squat', [3, 10], squatMusclesInvolvement, ['squat', 'bilateral']),
+    new AccesoryExercise('Front squat', [3, 10], squatMusclesInvolvement, ['squat', 'bilateral']),
+    new AccesoryExercise('Box squat', [3, 10], squatMusclesInvolvement, ['squat', 'bilateral']),
+    new AccesoryExercise('Pin squat', [3, 10], squatMusclesInvolvement, ['squat', 'bilateral']),
+    new AccesoryExercise('Hack squat', [3, 10], squatMusclesInvolvement, ['squat', 'bilateral']),
+    new AccesoryExercise('Overhead squat', [3, 10], ['quadriceps', 'calves', 'tibialis', 'glutes', 'lowerback', 'abdominals', 'upperbody', 'arms', 'shoulders', 'forearm'], ['squat', 'bilateral']),
+    new AccesoryExercise('Hip thrust', [3, 10], ['glutes', 'hamstrings', 'calves', 'tibialis'], ['hinge', 'unilateral']),
 ];
 let legsSmallExercises = [
-    new AccesoryExercise('Calf raises', [3, 10]),
-    new AccesoryExercise('Single-leg Calf raises', [4, 10]),
-    new AccesoryExercise('Tibialis raises', [3, 10]),
-    new AccesoryExercise('Copenhagen adductor raise', [2, 10]),
+    new AccesoryExercise('Calf raises', [3, 10], ['calves', 'tibialis'], ['extension', 'flexion']),
+    new AccesoryExercise('Single-leg Calf raises', [4, 10], ['calves', 'tibialis'], ['extension', 'flexion']),
+    new AccesoryExercise('Tibialis raises', [3, 10], ['tibialis', 'calves'], ['extension', 'flexion']),
+    new AccesoryExercise('Copenhagen adductor raise', [2, 10], ['adductor', 'abdominals'], ['extension', 'flexion']),
 ];
 let abdomenAndLowerback = [
-    new AccesoryExercise('Russian twists', [3, 20]),
-    new AccesoryExercise('Side crunch', [4, 20]),
-    new AccesoryExercise('Sit-ups', [3, 20]),
-    new AccesoryExercise('Toes to bar', [3, 10]),
-    new AccesoryExercise('Skin the cat', [3, 5]),
-    new AccesoryExercise('Classic deadlift', [3, 10]),
-    new AccesoryExercise('Sumo deadlift', [3, 10]),
-    new AccesoryExercise('Romanian deadlift', [3, 10]),
-    new AccesoryExercise('Trapbar deadlift', [3, 10]),
+    new AccesoryExercise('Classic deadlift', [3, 10], deadliftMusclesInvolvment, ['hinge', 'bilateral']),
+    new AccesoryExercise('Sumo deadlift', [3, 10], ['quadriceps', 'hamstrings', 'glutes', 'lowerback', 'abdominals', 'calves', 'tibialis', 'traps'], ['hinge', 'bilateral']),
+    new AccesoryExercise('Romanian deadlift', [3, 10], deadliftMusclesInvolvment, ['hinge', 'bilateral']),
+    new AccesoryExercise('Trapbar deadlift', [3, 10]), ['quadriceps', 'hamstrings', 'glutes', 'lowerback', 'abdominals', 'calves', 'tibialis', 'traps'], ['hinge', 'bilateral'],
+];
+let gymnasticsBack = [
+    new AccesoryExercise('Russian twists', [3, 20], ['abdominals', 'obliques'], ['rotational']),
+    new AccesoryExercise('Side crunch', [4, 20], ['abdominals', 'obliques'], ['flexion']),
+    new AccesoryExercise('Sit-ups', [3, 20], ['abdominals', 'lowerback'], ['flexion']),
+    new AccesoryExercise('Toes to bar', [3, 10], ['abdominals', 'lowerback', 'arms', 'forearm'], ['flexion']),
+    new AccesoryExercise('Skin the cat', [3, 5], ['abdominals', 'lowerback', 'arms', 'forearm'], ['flexion'])
+];
+let pushUpExerciseBodyWeight = [
+    new AccesoryExercise('Push-ups', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders',], ['push', 'bilateral'])
 ];
 let pullExercisesBodyweight = [
-    new AccesoryExercise('Push-ups', [3, 10]),
-    new AccesoryExercise('Pull-ups', [3, 10]),
-    new AccesoryExercise('Pull-ups neutral grip', [3, 10]),
-    new AccesoryExercise('Commando Pull-ups', [3, 10]),
-    new AccesoryExercise('Chin-ups', [3, 10]),
+    new AccesoryExercise('Pull-ups', [3, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'bilateral']),
+    new AccesoryExercise('Pull-ups neutral grip', [3, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'bilateral']),
+    new AccesoryExercise('Commando Pull-ups', [3, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'bilateral']),
+    new AccesoryExercise('Chin-ups', [3, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'bilateral']),
 ];
 let pullExercisesButMoreAccesible = [
-    new AccesoryExercise('Face cable pull', [3, 10]),
-    new AccesoryExercise('Cable pull vertical', [3, 10]),
-    new AccesoryExercise('Barbell Bent Over Row', [3, 10]),
-    new AccesoryExercise('Dumbbell Bent Over Row', [3, 10]),
-    new AccesoryExercise('One Arm Dumbbell Row', [3, 10]),
-    new AccesoryExercise('Pendley Row', [3, 10]),
+    new AccesoryExercise('Face cable pull', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['pull', 'bilateral']),
+    new AccesoryExercise('Lat pulldown', [3, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'bilateral']),
+    new AccesoryExercise('Barbell Bent Over Row', [3, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'bilateral']),
+    new AccesoryExercise('Dumbbell Bent Over Row', [3, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'bilateral']),
+    new AccesoryExercise('One Arm Dumbbell Row', [2, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'unilateral']),
+    new AccesoryExercise('Pendley Row', [3, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'bilateral']),
 ];
 let pushExercises = [
-    new AccesoryExercise('Dips', [3, 10]),
-    new AccesoryExercise('Dumbell floor press', [3, 10]),
-    new AccesoryExercise('Barbell floor press', [3, 10]),
-    new AccesoryExercise('Benchpress', [3, 10]),
+    new AccesoryExercise('Dips', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
+    new AccesoryExercise('Dumbell floor press', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
+    new AccesoryExercise('Barbell floor press', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
+    new AccesoryExercise('Benchpress', [3, 10], ['forearm', 'arms', 'upperbody', 'chest', 'shoulders'], ['push', 'bilateral'])
 ];
 let isometricsAndHangs = [
     new AccesoryExercise('Deadhangs', [3, 10]),
@@ -294,30 +309,30 @@ let isometricsAndHangs = [
     new AccesoryExercise('Bridge', [3, 20])
 ];
 let armsHypetrophy = [
-    new AccesoryExercise('Bicep curls', [3, 10]),
-    new AccesoryExercise('Bicep curls neutral grip dumbells', [3, 10]),
-    new AccesoryExercise('Skull crushers', [3, 10]),
+    new AccesoryExercise('Bicep curls', [3, 10], ['forearm', 'biceps'], ['flexion', 'isolated', 'bilateral']),
+    new AccesoryExercise('Bicep curls neutral grip dumbells', [3, 10], ['forearm', 'biceps'], ['flexion', 'isolated', 'bilateral']),
+    new AccesoryExercise('Skull crushers', [3, 10], ['forearm', 'triceps'], ['flexion', 'isolated', 'bilateral']),
     new AccesoryExercise('Wrist curls and extensions', [3, 10]),
 ];
 let pressBilateral = [
-    new AccesoryExercise('Overhead press barbell', [3, 10]),
-    new AccesoryExercise('Overhead Dumbell press', [3, 10]),
-    new AccesoryExercise('Overhead Kettlebell press', [3, 10]),
+    new AccesoryExercise('Overhead press barbell', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
+    new AccesoryExercise('Overhead dumbell press', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
+    new AccesoryExercise('Overhead kettlebell press', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral'])
 ];
 let pressUnilateral = [
-    new AccesoryExercise('Overhead press barbell', [3, 10]),
-    new AccesoryExercise('Overhead Dumbell press', [3, 10]),
-    new AccesoryExercise('Overhead Kettlebell press', [3, 10]),
+    new AccesoryExercise('Overhead press barbell', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'unilateral']),
+    new AccesoryExercise('Overhead Dumbell press', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'unilateral']),
+    new AccesoryExercise('Overhead Kettlebell press', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'unilateral']),
 ];
 let upperBodySmallExercises = [
     new AccesoryExercise('Shrugs', [3, 20], ['traps', 'forearm']),
     new AccesoryExercise('Lateral dumbell raise', [3, 10], ['shoulders']),
     new AccesoryExercise('Gate cable pulls', [3, 10], ['chest']),
-    new AccesoryExercise('Scapulae depression and elevation while hanging', [3, 10]), ['upperbody', 'scapulae'], ['isometric', 'bilateral'],
+    new AccesoryExercise('Scapulae depression and elevation while hanging', [3, 10], ['upperbody', 'scapulae'], ['isometric', 'bilateral']),
     new AccesoryExercise('Scapulae protraction and retraction while in push-up position', [3, 10], ['upperbody', 'scapulae'], ['isometric', 'bilateral'])
 ];
 let traversalAccesories = [
-    new AccesoryExercise('Farmer carry', [3, 10], ['obliques', 'lowerbody', 'legs', 'arms', 'abdominals'], ['traversal', 'bilateral', 'carry']),
+    new AccesoryExercise('Farmer carry', [3, 10], ['legs', 'lowerbody', 'obliques', 'abdominals', 'arms'], ['traversal', 'bilateral', 'carry']),
     new AccesoryExercise('Sled drag push', [3, 10]),
     new AccesoryExercise('Sled drag pull', [3, 10]),
 ];
@@ -336,8 +351,8 @@ let balisticLoad = [
     new AccesoryExercise('Ball throw - floor side 2 side', [3, 10]),
 ];
 let jointConditioningFRC = [
-    new AccesoryExercise('Hip full ROM rotations lying on the side', [3, 10]),
-    new AccesoryExercise('Hip full ROM rotations while standing', [3, 10]),
+    new AccesoryExercise('Hip full ROM rotations lying on the side', [2, 10]),
+    new AccesoryExercise('Hip full ROM rotations while standing', [2, 10]),
 ];
 let hardstyleSfgSpecific = [
     new AccesoryExercise('Swing', [3, 10]),
@@ -363,24 +378,24 @@ const randomPackUpperBodyAndAbdomen = [playDice(pressBilateral)[0], playDice(abd
 const randomPackUpperBodyChestAndArms = [playDice(pullExercisesBodyweight)[0], playDice(pullExercisesButMoreAccesible)[0], playDice(pushExercises)[0]];
 const basicOverload = (Squat, Bench, Deadlift) => {
     let overLoadedArray = [
-        [progress4Strength('Squat', Squat, true, false, false), randomPackLegsAsBasic],
-        [progress4Volume('Bench', Bench, true, false, false), randomPackUpperBodyChestAndArms],
-        [progress4Strength('Deadlift', Deadlift, true, false, false), randomPackUpperBodyAndAbdomen],
-        [progress4Volume('Squat', Squat, false, true, false), randomPackLegsAsBasic],
-        [progress4Strength('Bench', Bench, true, false, false), randomPackUpperBodyChestAndArms],
-        [progress4Volume('Deadlift', Deadlift, false, true, false), randomPackUpperBodyAndAbdomen],
-        [progress4Strength('Squat', Squat, false, true, false), randomPackLegsAsBasic],
-        [progress4Volume('Bench', Bench, false, true, false), randomPackUpperBodyChestAndArms],
-        [progress4Strength('Deadlift', Deadlift, false, true, false), randomPackUpperBodyAndAbdomen],
-        [progress4Volume('Squat', Squat, false, false, true), randomPackLegsAsBasic],
-        [progress4Strength('Bench', Bench, false, true, false), randomPackUpperBodyChestAndArms],
-        [progress4Volume('Deadlift', Deadlift, false, false, true), randomPackUpperBodyAndAbdomen],
-        [progress4Strength('Squat', Squat, false, false, true), randomPackLegsAsBasic],
-        [progress4Volume('Bench', Bench, false, false, true), randomPackUpperBodyChestAndArms],
-        [progress4Strength('Deadlift', Deadlift, false, false, true), randomPackUpperBodyAndAbdomen],
-        [progress4Volume('Squat', Squat, true, false, false), randomPackLegsAsBasic],
-        [progress4Strength('Bench', Bench, false, false, true), randomPackUpperBodyChestAndArms],
-        [progress4Volume('Deadlift', Deadlift, true, false, false), randomPackUpperBodyAndAbdomen],
+        [progress4Strength(`${squatExerciseMain.mainExercise}`, Squat, true, false, false, `${squatExerciseMain.MusclesInvolvedInExercise}`, `${squatExerciseMain.typesOfMovement}`), randomPackLegsAsBasic],
+        [progress4Volume(`${benchPressExerciseMain.mainExercise}`, Bench, true, false, false, `${benchPressExerciseMain.MusclesInvolvedInExercise}`, `${benchPressExerciseMain.typesOfMovement}`), randomPackUpperBodyChestAndArms],
+        [progress4Strength(`${deadliftExerciseMain.mainExercise}`, Deadlift, true, false, false, `${deadliftExerciseMain.MusclesInvolvedInExercise}`, `${deadliftExerciseMain.typesOfMovement}`), randomPackUpperBodyAndAbdomen],
+        [progress4Volume(`${squatExerciseMain.mainExercise}`, Squat, false, true, false, `${squatExerciseMain.MusclesInvolvedInExercise}`, `${squatExerciseMain.typesOfMovement}`), randomPackLegsAsBasic],
+        [progress4Strength(`${benchPressExerciseMain.mainExercise}`, Bench, true, false, false, `${benchPressExerciseMain.MusclesInvolvedInExercise}`, `${benchPressExerciseMain.typesOfMovement}`), randomPackUpperBodyChestAndArms],
+        [progress4Volume(`${deadliftExerciseMain.mainExercise}`, Deadlift, false, true, false, `${deadliftExerciseMain.MusclesInvolvedInExercise}`, `${deadliftExerciseMain.typesOfMovement}`), randomPackUpperBodyAndAbdomen],
+        [progress4Strength(`${squatExerciseMain.mainExercise}`, Squat, false, true, false, `${squatExerciseMain.MusclesInvolvedInExercise}`, `${squatExerciseMain.typesOfMovement}`), randomPackLegsAsBasic],
+        [progress4Volume(`${benchPressExerciseMain.mainExercise}`, Bench, false, true, false, `${benchPressExerciseMain.MusclesInvolvedInExercise}`, `${benchPressExerciseMain.typesOfMovement}`), randomPackUpperBodyChestAndArms],
+        [progress4Strength(`${deadliftExerciseMain.mainExercise}`, Deadlift, false, true, false, `${deadliftExerciseMain.MusclesInvolvedInExercise}`, `${deadliftExerciseMain.typesOfMovement}`), randomPackUpperBodyAndAbdomen],
+        [progress4Volume(`${squatExerciseMain.mainExercise}`, Squat, false, false, true, `${squatExerciseMain.MusclesInvolvedInExercise}`, `${squatExerciseMain.typesOfMovement}`), randomPackLegsAsBasic],
+        [progress4Strength(`${benchPressExerciseMain.mainExercise}`, Bench, false, true, false, `${benchPressExerciseMain.MusclesInvolvedInExercise}`, `${benchPressExerciseMain.typesOfMovement}`), randomPackUpperBodyChestAndArms],
+        [progress4Volume(`${deadliftExerciseMain.mainExercise}`, Deadlift, false, false, true, `${deadliftExerciseMain.MusclesInvolvedInExercise}`, `${deadliftExerciseMain.typesOfMovement}`), randomPackUpperBodyAndAbdomen],
+        [progress4Strength(`${squatExerciseMain.mainExercise}`, Squat, false, false, true, `${squatExerciseMain.MusclesInvolvedInExercise}`, `${squatExerciseMain.typesOfMovement}`), randomPackLegsAsBasic],
+        [progress4Volume(`${benchPressExerciseMain.mainExercise}`, Bench, false, false, true, `${benchPressExerciseMain.MusclesInvolvedInExercise}`, `${benchPressExerciseMain.typesOfMovement}`), randomPackUpperBodyChestAndArms],
+        [progress4Strength(`${deadliftExerciseMain.mainExercise}`, Deadlift, false, false, true, `${deadliftExerciseMain.MusclesInvolvedInExercise}`, `${deadliftExerciseMain.typesOfMovement}`), randomPackUpperBodyAndAbdomen],
+        [progress4Volume(`${squatExerciseMain.mainExercise}`, Squat, true, false, false, `${squatExerciseMain.MusclesInvolvedInExercise}`, `${squatExerciseMain.typesOfMovement}`), randomPackLegsAsBasic],
+        [progress4Strength(`${benchPressExerciseMain.mainExercise}`, Bench, false, false, true, `${benchPressExerciseMain.MusclesInvolvedInExercise}`, `${benchPressExerciseMain.typesOfMovement}`), randomPackUpperBodyChestAndArms],
+        [progress4Volume(`${deadliftExerciseMain.mainExercise}`, Deadlift, true, false, false, `${deadliftExerciseMain.MusclesInvolvedInExercise}`, `${deadliftExerciseMain.typesOfMovement}`), randomPackUpperBodyAndAbdomen],
     ];
     return overLoadedArray;
 };
@@ -418,7 +433,7 @@ const trackTheVolume = (overload) => {
 console.log(trackTheVolume(z));
 const chooseFromVolume = (overload) => {
     const highestVol = overload.filter((a) => {
-        return a.sets === 3;
+        return a + a;
     });
     return highestVol;
 };
@@ -428,4 +443,5 @@ const chooseFromIntensity = (overload) => {
     });
     return highestInt;
 };
+console.log(chooseFromVolume(z));
 //# sourceMappingURL=app.js.map
