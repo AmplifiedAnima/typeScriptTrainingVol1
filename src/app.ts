@@ -116,6 +116,7 @@ form4Load4?.addEventListener('submit', (e)=> {
     // if (intensity4Deadlift?.value === '' && reps4Deadlift?.value === ''|| Number(reps4Deadlift?.value))
 
     console.log(array)
+    
 
    
     const Projection: string[]|string|any= array.map((element: any, index: number ) => {
@@ -127,14 +128,17 @@ form4Load4?.addEventListener('submit', (e)=> {
         let secondExerciseLoadAccesory: number[] = element[1][1].load
         let thirdExerciseLoadAccesory: number[] = element[1][2].load
 
-        const volumeTrackerMini = (overload: any) => {
-            let totalExerciseLoad:any = overload[0] * overload[1] * overload[2]
-            // key to counting load
-                return Math.round(totalExerciseLoad)
-            // sum it up with  .reduce((acc: number,cur: number) => acc + cur);
-        }
-
-        console.log(volumeTrackerMini(firstExerciseLoad))
+        // const volumeTrackerMini = (overload: any) => {
+        //     let totalExerciseLoad: any = overload[0] * overload[1] * overload[2]
+        //     // key to counting load
+        
+        //     return [totalExerciseLoad];
+        
+        // }
+        // // elaborate on tracker and create logic for main exercises ,accesory and metabolic stress
+     
+    
+      
         let table: string = ''
         table +=`  
                 <tr>
@@ -343,17 +347,17 @@ console.log(mainExercises)
 
 let lowerBodyUnilateral = [
     //unilateral
-    new AccesoryExercise('Bulgarian split squat',[2,10],['quadriceps', 'calves', 'tibialis'],['lunge','unilateral']),
-    new AccesoryExercise('Lunge backwards',[2,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['lunge','unilateral']),
-    new AccesoryExercise('Lunge forward',[2,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['lunge','unilateral']),
+    new AccesoryExercise('Bulgarian split squat',[2,10],['quadriceps', 'calves', 'tibialis'],['lunge', 'unilateral']),
+    new AccesoryExercise('Lunge backwards',[2,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['lunge', 'unilateral']),
+    new AccesoryExercise('Lunge forward',[2,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['lunge', 'unilateral']),
     new AccesoryExercise('Lunge lateral (partial cossack squat)',[3,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['lunge','unilateral']),
-    new AccesoryExercise('Cossack squat full ROM',[3,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['lunge','unilateral']),
-    new AccesoryExercise('Single-legged romanian deadlift',[2,10],['hamstrings', 'calves', 'tibialis'],['hinge','unilateral']),
-    new AccesoryExercise('Staggered-stance romanian deadlift',[2,10],['hamstrings', 'quadriceps', 'calves', 'tibialis'],['hinge','unilateral']),
-    new AccesoryExercise('Hip thrust - one side only',[2,10],['glutes', 'hamstrings', 'calves', 'tibialis'],['hinge','unilateral']), 
-    new AccesoryExercise('Box step-ups',[3,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['hinge','unilateral']),
-    new AccesoryExercise('Single leg squats',[2,10],['quadriceps', 'calves', 'tibialis'],['hinge','unilateral']),
-    new AccesoryExercise('Poliquin step-up',[2,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['hinge','unilateral']),
+    new AccesoryExercise('Cossack squat full ROM',[3,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['lunge', 'unilateral']),
+    new AccesoryExercise('Single-legged romanian deadlift',[2,10],['hamstrings', 'calves', 'tibialis'],['hinge', 'unilateral']),
+    new AccesoryExercise('Staggered-stance romanian deadlift',[2,10],['hamstrings', 'quadriceps', 'calves', 'tibialis'],['hinge', 'unilateral']),
+    new AccesoryExercise('Hip thrust - one side only',[2,10],['glutes', 'hamstrings', 'calves', 'tibialis'],['hinge', 'unilateral']), 
+    new AccesoryExercise('Box step-ups',[3,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['hinge', 'unilateral']),
+    new AccesoryExercise('Single leg squats',[2,10],['quadriceps', 'calves', 'tibialis'],['hinge', 'unilateral']),
+    new AccesoryExercise('Poliquin step-up',[2,10],['quadriceps', 'hamstrings', 'calves', 'tibialis'],['hinge', 'unilateral']),
 ]
 
 const squatMusclesInvolvement = ['quadriceps', 'calves', 'tibialis', 'glutes', 'lowerback', 'abdominals']
@@ -367,15 +371,15 @@ let lowerBodyBilateral = [
     new AccesoryExercise('Pin squat',[3,10],  squatMusclesInvolvement,['squat', 'bilateral']),
     new AccesoryExercise('Hack squat',[3,10],  squatMusclesInvolvement,['squat', 'bilateral']),
     new AccesoryExercise('Overhead squat',[3,10], ['quadriceps', 'calves', 'tibialis', 'glutes', 'lowerback', 'abdominals', 'upperbody', 'arms', 'shoulders', 'forearm'],['squat', 'bilateral']),
-    new AccesoryExercise('Hip thrust',[3,10],['glutes','hamstrings','calves','tibialis'],['hinge','unilateral']),
+    new AccesoryExercise('Hip thrust',[3,10],['glutes','hamstrings','calves','tibialis'],['hinge', 'unilateral']),
 ]
 
 
 let legsSmallExercises = [
-    new AccesoryExercise('Calf raises',[3,10], ['calves', 'tibialis'],['extension','flexion']),
-    new AccesoryExercise('Single-leg Calf raises',[4,10], ['calves', 'tibialis'],['extension','flexion']),
-    new AccesoryExercise('Tibialis raises',[3,10],['tibialis', 'calves'],['extension','flexion']),
-    new AccesoryExercise('Copenhagen adductor raise',[2,10],['adductor', 'abdominals'],['extension','flexion']),
+    new AccesoryExercise('Calf raises',[3,10], ['calves', 'tibialis'],['extension', 'flexion']),
+    new AccesoryExercise('Single-leg Calf raises',[4,10], ['calves', 'tibialis'],['extension', 'flexion']),
+    new AccesoryExercise('Tibialis raises',[3,10],['tibialis', 'calves'],['extension', 'flexion']),
+    new AccesoryExercise('Copenhagen adductor raise',[2,10],['adductor', 'abdominals'],['extension', 'flexion']),
 ]
 
 let abdomenAndLowerback = [
@@ -383,68 +387,69 @@ let abdomenAndLowerback = [
     new AccesoryExercise('Classic deadlift',[3,10],deadliftMusclesInvolvment,['hinge', 'bilateral']),
     new AccesoryExercise('Sumo deadlift',[3,10],['quadriceps', 'hamstrings', 'glutes', 'lowerback', 'abdominals', 'calves', 'tibialis', 'traps'],['hinge', 'bilateral']),
     new AccesoryExercise('Romanian deadlift',[3,10],deadliftMusclesInvolvment,['hinge', 'bilateral']),
-    new AccesoryExercise('Trapbar deadlift',[3,10]),['quadriceps', 'hamstrings', 'glutes', 'lowerback', 'abdominals', 'calves', 'tibialis', 'traps'],['hinge', 'bilateral'],
+    new AccesoryExercise('Trapbar deadlift',[3,10],['quadriceps', 'hamstrings', 'glutes', 'lowerback', 'abdominals', 'calves', 'tibialis', 'traps'],['hinge', 'bilateral']),
 ]
     
 let gymnasticsBack = [        
     new AccesoryExercise('Russian twists',[3,20],['abdominals', 'obliques'], ['rotational']),
     new AccesoryExercise('Side crunch',[4,20],['abdominals', 'obliques'], ['flexion']),
-    new AccesoryExercise('Sit-ups',[3,20],['abdominals','lowerback'], ['flexion']),
-    new AccesoryExercise('Toes to bar',[3,10],['abdominals','lowerback','arms','forearm'], ['flexion']),
-    new AccesoryExercise('Skin the cat',[3,5],['abdominals','lowerback','arms','forearm'], ['flexion'])
+    new AccesoryExercise('Sit-ups',[3,20],['abdominals', 'lowerback'], ['flexion']),
+    new AccesoryExercise('Toes to bar',[3,10],['abdominals', 'lowerback', 'arms', 'forearm'], ['flexion']),
+    new AccesoryExercise('Skin the cat',[3,5],['abdominals', 'lowerback', 'arms', 'forearm'], ['flexion'])
 ]  
 
 let pushUpExerciseBodyWeight = [
-    new AccesoryExercise('Push-ups',[3,10],['forearm', 'arms', 'upperbody', 'shoulders',],['push', 'bilateral'])
+    new AccesoryExercise('Push-ups',[3,10],['forearm', 'arms', 'upperbody', 'shoulders'],['push', 'bilateral'])
 ]
 
 let pullExercisesBodyweight = [
     //static arms
     //bilateral
    
-    new AccesoryExercise('Pull-ups',[3,10],['forearm','arms','upperback','shoulders'],['pull', 'bilateral']),
-    new AccesoryExercise('Pull-ups neutral grip',[3,10],['forearm','arms','upperback','shoulders'],['pull', 'bilateral']),
-    new AccesoryExercise('Commando Pull-ups',[3,10],['forearm','arms','upperback','shoulders'],['pull', 'bilateral']),
-    new AccesoryExercise('Chin-ups',[3,10],['forearm','arms','upperback','shoulders'],['pull', 'bilateral']),
+    new AccesoryExercise('Pull-ups',[3,10],['forearm', 'arms', 'upperback', 'shoulders'],['pull', 'bilateral']),
+    new AccesoryExercise('Pull-ups neutral grip',[3,10],['forearm', 'arms', 'upperback', 'shoulders'],['pull', 'bilateral']),
+    new AccesoryExercise('Commando Pull-ups',[3,10],['forearm', 'arms', 'upperback', 'shoulders'],['pull', 'bilateral']),
+    new AccesoryExercise('Chin-ups',[3,10],['forearm', 'arms', 'upperback', 'shoulders'],['pull', 'bilateral']),
 ]
 
 
 let pullExercisesButMoreAccesible = [
-    new AccesoryExercise('Face cable pull',[3,10],['forearm','arms','upperbody','shoulders'],['pull', 'bilateral']),
-    new AccesoryExercise('Lat pulldown',[3,10],['forearm','arms','upperback','shoulders'],['pull', 'bilateral']),
-    new AccesoryExercise('Barbell Bent Over Row',[3,10], ['forearm','arms','upperback','shoulders'],['pull', 'bilateral']),
-    new AccesoryExercise('Dumbbell Bent Over Row',[3,10],['forearm','arms','upperback','shoulders'],['pull', 'bilateral']),
-    new AccesoryExercise('One Arm Dumbbell Row',[2,10],['forearm','arms','upperback','shoulders'],['pull', 'unilateral']),
-    new AccesoryExercise('Pendley Row',[3,10],['forearm','arms','upperback','shoulders'],['pull', 'bilateral']),
+    new AccesoryExercise('Face cable pull',[3,10],['forearm', 'arms', 'upperbody', 'shoulders'],['pull', 'bilateral']),
+    new AccesoryExercise('Lat pulldown',[3,10],['forearm', 'arms', 'upperback', 'shoulders'],['pull', 'bilateral']),
+    new AccesoryExercise('Barbell Bent Over Row',[3,10], ['forearm', 'arms', 'upperback', 'shoulders'],['pull', 'bilateral']),
+    new AccesoryExercise('Dumbbell Bent Over Row',[3,10],['forearm', 'arms', 'upperback', 'shoulders'],['pull', 'bilateral']),
+    new AccesoryExercise('One Arm Dumbbell Row',[2,10],['forearm', 'arms', 'upperback', 'shoulders'],['pull', 'unilateral']),
+    new AccesoryExercise('Pendley Row',[3,10],['forearm', 'arms', 'upperback', 'shoulders'],['pull', 'bilateral']),
 ]
 
 let pushExercises = [
-    new AccesoryExercise('Dips',[3,10],['forearm','arms','upperbody','shoulders'], ['push', 'bilateral']),
-    new AccesoryExercise('Dumbell floor press',[3,10],['forearm','arms','upperbody','shoulders'], ['push', 'bilateral']),
-    new AccesoryExercise('Barbell floor press',[3,10],['forearm','arms','upperbody','shoulders'], ['push', 'bilateral']),
+    new AccesoryExercise('Dips',[3,10],['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
+    new AccesoryExercise('Dumbell floor press',[3,10],['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
+    new AccesoryExercise('Barbell floor press',[3,10],['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
     new AccesoryExercise('Benchpress',[3,10],['forearm', 'arms', 'upperbody', 'chest', 'shoulders'],['push', 'bilateral'])
 ]
 
 let isometricsAndHangs = [
-    new AccesoryExercise('Deadhangs',[3,10]),
-    new AccesoryExercise('Forearm plank',[3,20]),
-    new AccesoryExercise('Side-plank',[3,20]),
-    new AccesoryExercise('Reverse gymnastic plank',[3,10]),
-    new AccesoryExercise('Push-up position hold',[3,20]),
-    new AccesoryExercise('Bridge',[3,20])
+    new AccesoryExercise('Deadhangs',[3,'1 min'],['forearm', 'arms', 'upperbody', 'shoulders'],['isometric', 'hold']),
+    new AccesoryExercise('Forearm plank',[3,'1 min'],['forearm', 'arms', 'upperbody', 'shoulders', 'abdominals'],['isometric', 'hold']),
+    new AccesoryExercise('Side-plank',[3,'1 min'],['forearm', 'arms', 'upperbody', 'shoulders'],['isometric', 'hold']),
+    new AccesoryExercise('Reverse gymnastic plank',[3,'1 min'],['forearm', 'arms', 'upperbody', 'shoulders'],['isometric', 'hold']),
+    new AccesoryExercise('Push-up position hold',[3,'1 min'],['forearm', 'arms', 'upperbody', 'shoulders'],['isometric', 'hold']),
+    new AccesoryExercise('Bridge',[3,'1 min'],['forearm', 'arms', 'upperbody', 'shoulders'],['isometric', 'hold'])
 
 ]
+console.log(isometricsAndHangs)
 let armsHypetrophy = [
     // unilateral/bilateral
-    new AccesoryExercise('Bicep curls',[3,10],['forearm','biceps'], ['flexion','isolated','bilateral']),
-    new AccesoryExercise('Bicep curls neutral grip dumbells',[3,10], ['forearm','biceps'],['flexion','isolated','bilateral']),
-    new AccesoryExercise('Skull crushers',[3,10], ['forearm','triceps'], ['flexion','isolated','bilateral']),
-    new AccesoryExercise('Wrist curls and extensions',[3,10]),
+    new AccesoryExercise('Bicep curls',[3,10],['forearm', 'biceps'], ['flexion', 'isolated', 'bilateral']),
+    new AccesoryExercise('Bicep curls neutral grip dumbells',[3,10], ['forearm', 'biceps'],['flexion', 'isolated', 'bilateral']),
+    new AccesoryExercise('Skull crushers',[3,10], ['forearm', 'triceps'], ['flexion', 'isolated', 'bilateral']),
+    new AccesoryExercise('Wrist curls and extensions',[3,10],['forearm'],['flexion', 'isolated', 'bilateral']),
 ]
 
 let pressBilateral = [
     //bilateral
-    new AccesoryExercise('Overhead press barbell',[3,10], ['forearm', 'arms', 'upperbody', 'shoulders'] ,['push', 'bilateral']),
+    new AccesoryExercise('Overhead press barbell',[3,10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
     new AccesoryExercise('Overhead dumbell press',[3,10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
     new AccesoryExercise('Overhead kettlebell press',[3,10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral'])
    ]
@@ -458,11 +463,11 @@ let pressUnilateral = [
 //
 let upperBodySmallExercises = [
 
-    new AccesoryExercise('Shrugs',[3,20],['traps','forearm']),
-    new AccesoryExercise('Lateral dumbell raise',[3,10],['shoulders']),
-    new AccesoryExercise('Gate cable pulls',[3,10],['chest']),
-    new AccesoryExercise('Scapulae depression and elevation while hanging',[3,10],['upperbody','scapulae'],['isometric','bilateral']),
-    new AccesoryExercise('Scapulae protraction and retraction while in push-up position',[3,10],['upperbody','scapulae'],['isometric','bilateral'])
+    new AccesoryExercise('Shrugs',[3,20],['traps', 'forearm'],['lift', 'isolated']),
+    new AccesoryExercise('Lateral dumbell raise',[3,10],['shoulders', 'upperbody', 'arms',],['lift', 'isolated', 'bilateral']),
+    new AccesoryExercise('Gate cable pulls',[3,10],['chest', 'upperbody', 'arms'],['pull', 'bilateral']),
+    new AccesoryExercise('Scapulae depression and elevation while hanging',[3,10],['upperbody', 'scapulae'],['isometric', 'bilateral']),
+    new AccesoryExercise('Scapulae protraction and retraction while in push-up position',[3,10],['upperbody', 'scapulae'],['isometric', 'bilateral'])
 ]
 
 let traversalAccesories = [
@@ -583,21 +588,6 @@ let paidTwiceArray: any = []
 let paidTwiceArray1: any = []
 let paidTwiceArray2: any = []
 
-
-// elaborate on tracker and create logic for main exercises ,accesory and metabolic stress
-const trackTheVolume = (overload: {}[]) => {
-    let totalLoadExerciseValue: number;
-    let totalOfLoad: number[] = [];
-    
-    overload.filter((e: any) => {
-        totalLoadExerciseValue = e[0].load[0][0] * e[0].load[0][1] * e[0].load[0][2]
-        totalOfLoad.push(totalLoadExerciseValue)
-    });
-    return totalOfLoad.reduce((acc: number,cur: number) => acc + cur);
-};
-console.log(trackTheVolume(z))
-
-
 // all volume units
 const chooseFromVolume = (overload: {}[]) => {
     const highestVol = overload.filter((a: any) => {
@@ -612,5 +602,3 @@ const chooseFromIntensity = (overload: {}[]) => {
     });
     return highestInt;
 }
-
-console.log(chooseFromVolume(z))

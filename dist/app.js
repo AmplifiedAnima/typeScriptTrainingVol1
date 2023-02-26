@@ -67,11 +67,6 @@ form4Load4 === null || form4Load4 === void 0 ? void 0 : form4Load4.addEventListe
         let firstExerciseLoadAccesory = element[1][0].load;
         let secondExerciseLoadAccesory = element[1][1].load;
         let thirdExerciseLoadAccesory = element[1][2].load;
-        const volumeTrackerMini = (overload) => {
-            let totalExerciseLoad = overload[0] * overload[1] * overload[2];
-            return Math.round(totalExerciseLoad);
-        };
-        console.log(volumeTrackerMini(firstExerciseLoad));
         let table = '';
         table += `  
                 <tr>
@@ -268,7 +263,7 @@ let abdomenAndLowerback = [
     new AccesoryExercise('Classic deadlift', [3, 10], deadliftMusclesInvolvment, ['hinge', 'bilateral']),
     new AccesoryExercise('Sumo deadlift', [3, 10], ['quadriceps', 'hamstrings', 'glutes', 'lowerback', 'abdominals', 'calves', 'tibialis', 'traps'], ['hinge', 'bilateral']),
     new AccesoryExercise('Romanian deadlift', [3, 10], deadliftMusclesInvolvment, ['hinge', 'bilateral']),
-    new AccesoryExercise('Trapbar deadlift', [3, 10]), ['quadriceps', 'hamstrings', 'glutes', 'lowerback', 'abdominals', 'calves', 'tibialis', 'traps'], ['hinge', 'bilateral'],
+    new AccesoryExercise('Trapbar deadlift', [3, 10], ['quadriceps', 'hamstrings', 'glutes', 'lowerback', 'abdominals', 'calves', 'tibialis', 'traps'], ['hinge', 'bilateral']),
 ];
 let gymnasticsBack = [
     new AccesoryExercise('Russian twists', [3, 20], ['abdominals', 'obliques'], ['rotational']),
@@ -278,7 +273,7 @@ let gymnasticsBack = [
     new AccesoryExercise('Skin the cat', [3, 5], ['abdominals', 'lowerback', 'arms', 'forearm'], ['flexion'])
 ];
 let pushUpExerciseBodyWeight = [
-    new AccesoryExercise('Push-ups', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders',], ['push', 'bilateral'])
+    new AccesoryExercise('Push-ups', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral'])
 ];
 let pullExercisesBodyweight = [
     new AccesoryExercise('Pull-ups', [3, 10], ['forearm', 'arms', 'upperback', 'shoulders'], ['pull', 'bilateral']),
@@ -301,18 +296,19 @@ let pushExercises = [
     new AccesoryExercise('Benchpress', [3, 10], ['forearm', 'arms', 'upperbody', 'chest', 'shoulders'], ['push', 'bilateral'])
 ];
 let isometricsAndHangs = [
-    new AccesoryExercise('Deadhangs', [3, 10]),
-    new AccesoryExercise('Forearm plank', [3, 20]),
-    new AccesoryExercise('Side-plank', [3, 20]),
-    new AccesoryExercise('Reverse gymnastic plank', [3, 10]),
-    new AccesoryExercise('Push-up position hold', [3, 20]),
-    new AccesoryExercise('Bridge', [3, 20])
+    new AccesoryExercise('Deadhangs', [3, '1 min'], ['forearm', 'arms', 'upperbody', 'shoulders'], ['isometric', 'hold']),
+    new AccesoryExercise('Forearm plank', [3, '1 min'], ['forearm', 'arms', 'upperbody', 'shoulders', 'abdominals'], ['isometric', 'hold']),
+    new AccesoryExercise('Side-plank', [3, '1 min'], ['forearm', 'arms', 'upperbody', 'shoulders'], ['isometric', 'hold']),
+    new AccesoryExercise('Reverse gymnastic plank', [3, '1 min'], ['forearm', 'arms', 'upperbody', 'shoulders'], ['isometric', 'hold']),
+    new AccesoryExercise('Push-up position hold', [3, '1 min'], ['forearm', 'arms', 'upperbody', 'shoulders'], ['isometric', 'hold']),
+    new AccesoryExercise('Bridge', [3, '1 min'], ['forearm', 'arms', 'upperbody', 'shoulders'], ['isometric', 'hold'])
 ];
+console.log(isometricsAndHangs);
 let armsHypetrophy = [
     new AccesoryExercise('Bicep curls', [3, 10], ['forearm', 'biceps'], ['flexion', 'isolated', 'bilateral']),
     new AccesoryExercise('Bicep curls neutral grip dumbells', [3, 10], ['forearm', 'biceps'], ['flexion', 'isolated', 'bilateral']),
     new AccesoryExercise('Skull crushers', [3, 10], ['forearm', 'triceps'], ['flexion', 'isolated', 'bilateral']),
-    new AccesoryExercise('Wrist curls and extensions', [3, 10]),
+    new AccesoryExercise('Wrist curls and extensions', [3, 10], ['forearm'], ['flexion', 'isolated', 'bilateral']),
 ];
 let pressBilateral = [
     new AccesoryExercise('Overhead press barbell', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'bilateral']),
@@ -325,9 +321,9 @@ let pressUnilateral = [
     new AccesoryExercise('Overhead Kettlebell press', [3, 10], ['forearm', 'arms', 'upperbody', 'shoulders'], ['push', 'unilateral']),
 ];
 let upperBodySmallExercises = [
-    new AccesoryExercise('Shrugs', [3, 20], ['traps', 'forearm']),
-    new AccesoryExercise('Lateral dumbell raise', [3, 10], ['shoulders']),
-    new AccesoryExercise('Gate cable pulls', [3, 10], ['chest']),
+    new AccesoryExercise('Shrugs', [3, 20], ['traps', 'forearm'], ['lift', 'isolated']),
+    new AccesoryExercise('Lateral dumbell raise', [3, 10], ['shoulders', 'upperbody', 'arms',], ['lift', 'isolated', 'bilateral']),
+    new AccesoryExercise('Gate cable pulls', [3, 10], ['chest', 'upperbody', 'arms'], ['pull', 'bilateral']),
     new AccesoryExercise('Scapulae depression and elevation while hanging', [3, 10], ['upperbody', 'scapulae'], ['isometric', 'bilateral']),
     new AccesoryExercise('Scapulae protraction and retraction while in push-up position', [3, 10], ['upperbody', 'scapulae'], ['isometric', 'bilateral'])
 ];
@@ -421,16 +417,6 @@ const freeFallProgression = (load) => {
 let paidTwiceArray = [];
 let paidTwiceArray1 = [];
 let paidTwiceArray2 = [];
-const trackTheVolume = (overload) => {
-    let totalLoadExerciseValue;
-    let totalOfLoad = [];
-    overload.filter((e) => {
-        totalLoadExerciseValue = e[0].load[0][0] * e[0].load[0][1] * e[0].load[0][2];
-        totalOfLoad.push(totalLoadExerciseValue);
-    });
-    return totalOfLoad.reduce((acc, cur) => acc + cur);
-};
-console.log(trackTheVolume(z));
 const chooseFromVolume = (overload) => {
     const highestVol = overload.filter((a) => {
         return a + a;
@@ -443,5 +429,4 @@ const chooseFromIntensity = (overload) => {
     });
     return highestInt;
 };
-console.log(chooseFromVolume(z));
 //# sourceMappingURL=app.js.map
