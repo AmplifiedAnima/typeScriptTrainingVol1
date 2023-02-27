@@ -15,6 +15,8 @@ class AccesoryExercise {
         this.TypesOfMovement = TypesOfMovement;
     }
 }
+class TraversalExercises {
+}
 class MetabolicStress {
     constructor(activity, metabolicLoad, duration, distance) {
         this.activity = activity,
@@ -49,9 +51,9 @@ const playDice = (arr) => {
 };
 form4Load4 === null || form4Load4 === void 0 ? void 0 : form4Load4.addEventListener('submit', (e) => {
     e.preventDefault();
-    const squatLoad = loadTheLoad(Math.round(Number(reps4LoadSquat === null || reps4LoadSquat === void 0 ? void 0 : reps4LoadSquat.value)), Number(intensity4Squat === null || intensity4Squat === void 0 ? void 0 : intensity4Squat.value));
-    const deadliftLoad = loadTheLoad(Math.round(Number(reps4Deadlift === null || reps4Deadlift === void 0 ? void 0 : reps4Deadlift.value)), Number(intensity4Deadlift === null || intensity4Deadlift === void 0 ? void 0 : intensity4Deadlift.value));
-    const benchLoad = loadTheLoad(Math.round(Number(reps4Bench === null || reps4Bench === void 0 ? void 0 : reps4Bench.value)), Number(intensity4Bench === null || intensity4Bench === void 0 ? void 0 : intensity4Bench.value));
+    const squatLoad = loadTheLoad(Math.round(Number(reps4LoadSquat.value)), Number(intensity4Squat === null || intensity4Squat === void 0 ? void 0 : intensity4Squat.value));
+    const deadliftLoad = loadTheLoad(Math.round(Number(reps4Deadlift.value)), Number(intensity4Deadlift === null || intensity4Deadlift === void 0 ? void 0 : intensity4Deadlift.value));
+    const benchLoad = loadTheLoad(Math.round(Number(reps4Bench.value)), Number(intensity4Bench === null || intensity4Bench === void 0 ? void 0 : intensity4Bench.value));
     const repMax4Squat = squatLoad.toString();
     const repMax4Deadlift = deadliftLoad.toString();
     const repMax4Bench = benchLoad.toString();
@@ -73,55 +75,71 @@ form4Load4 === null || form4Load4 === void 0 ? void 0 : form4Load4.addEventListe
                 <th><h4>${index + 1}. Training unit</h4></th>
                 </tr>
                 <tr>
-                <td><h4> Main exercise : ${element[0].mainExercise}<h4></td>
-                <td>               <small> Muscles involved : ${element[0].MusclesInvolvedInExercise}</small>
-                </td>
- 
+                <td><h3> Main exercise : ${element[0].mainExercise}<h4></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Muscles involved : ${element[0].MusclesInvolvedInExercise}</td>
                 </tr>
                 <tr>
                 </tr>
-                <td><h5>Intensity <h5></td>
-                <td><h5>Sets <h5></td>
+                <td><h3>Intensity <h5></td>
                 <td></td>
-                <td><h5>Reps <h5></td>
+                <td><h3>Sets <h5></td>
+                <td></td>
+                <td><h3>Reps <h5></td>
                 <tr>
-                <td><h4>${Math.round(firstExerciseLoad[0])} kg </h4></td>
-                <td><h5>${firstExerciseLoad[1]}</h5></td>
+                <td><h3>${Math.round(firstExerciseLoad[0])} kg </h3></td>
                 <td></td>
-                <td><h5>${firstExerciseLoad[2]}</h5></td>
+                <td><h3>${firstExerciseLoad[1]}</h5></td>
+                <td></td>
+                <td><h3>${firstExerciseLoad[2]}</h3></td>
                 </tr>
                 <tr>
-                <td><h4>${Math.round(secondExerciseLoad[0])} kg </h4></td>
-                <td><h5>${secondExerciseLoad[1]}</h5></td>
+                <td><h3>${Math.round(secondExerciseLoad[0])} kg </h3></td>
                 <td></td>
-                <td><h5>${secondExerciseLoad[2]}</h5></td>
+                <td><h3>${secondExerciseLoad[1]}</h5></td>
+                <td></td>
+                <td><h3>${secondExerciseLoad[2]}</h3></td>
                 </tr>
                 <tr>
-                <td><h4>${Math.round(thirdExerciseLoad[0])} kg </h4></td>
-                <td><h5>${thirdExerciseLoad[1]}</h5></td>
+                <td><h3>${Math.round(thirdExerciseLoad[0])} kg </h3></td>
                 <td></td>
-                <td><h5>${thirdExerciseLoad[2]}</h5></td>
+                <td><h3>${thirdExerciseLoad[1]}</h3></td>
+                <td></td>
+                <td><h3>${thirdExerciseLoad[2]}</h3></td>
                 </tr>
                 <tr>
-                <td><h4> Accesory I: ${element[1][0].accesory} </h4></td>
-                <td><h5>${firstExerciseLoadAccesory[0]}</h5></td>
+                <td><h3> Accesory I: ${element[1][0].accesory}</h3></td>   
                 <td></td>
-                <td><h5>${firstExerciseLoadAccesory[1]}</h5></td>
-                <td><small> Muscles involved : ${element[1][0].MusclesInvolvedInExercise} </small></td>
+                <td><h3>${firstExerciseLoadAccesory[0]}</h3></td>
+                <td></td>
+                <td><h3>${firstExerciseLoadAccesory[1]}</h3></td>
+                <td></td>
+                <td>Muscles involved : ${element[1][0].MusclesInvolvedInExercise}</td>
+                <td> <button id='Change_first_accesory'> Change me </button></td>
                 </tr>   
                 <tr>
-                <td><h4> Accesory II: ${element[1][1].accesory} </h4></h4></td>
-                <td><h5>${secondExerciseLoadAccesory[0]}</h5></td>
+                <td><h3> Accesory II: ${element[1][1].accesory} </h3></h4></td>
                 <td></td>
-                <td><h5>${secondExerciseLoadAccesory[1]}</h5></td>
-                <td><small> Muscles involved : ${element[1][1].MusclesInvolvedInExercise} </small></td>
+                <td><h3>${secondExerciseLoadAccesory[0]}</h3></td>
+                <td></td>
+                <td><h3>${secondExerciseLoadAccesory[1]}</h3></td>
+                <td></td>
+                <td> Muscles involved : ${element[1][1].MusclesInvolvedInExercise} </td>
+                <td> <button id='change_Second_Accesory'> Change me </button></td>
                 </tr>
                 <tr>
-                <td><h4> Accesory III: ${element[1][2].accesory} </h4> </td>
-                <td><h5>${thirdExerciseLoadAccesory[0]}</h5></td>
+                <td><h3> Accesory III: ${element[1][2].accesory} </h4> </td>
                 <td></td>
-                <td><h5>${thirdExerciseLoadAccesory[1]}</h5></td>
-                <td><small> Muscles involved : ${element[1][1].MusclesInvolvedInExercise} </small></td>
+                <td><h3>${thirdExerciseLoadAccesory[0]}</h3></td>
+                <td></td>
+                <td><h3>${thirdExerciseLoadAccesory[1]}</h3></td>
+                <td></td>
+                <td> Muscles involved : ${element[1][1].MusclesInvolvedInExercise} </td>
+                <td> <button id='change_Third_Accesory'> Change me </button></td>
                 </tr>
                 <td></td>
                 <tr>
@@ -138,7 +156,7 @@ function handleClick() {
     console.log("Clicked!");
 }
 const loadTheLoad = (repetitions, intensity) => {
-    const repMax = repetitions * intensity * 0.033 + intensity;
+    const repMax = intensity / (1.0278 - (0.0278 * repetitions));
     return repMax;
 };
 const lockAndLoad = (loadIntensity, sets, reps) => {
@@ -184,8 +202,6 @@ const lockAndLoad = (loadIntensity, sets, reps) => {
     else {
         return load;
     }
-};
-const lockAndLoadForAccesories = () => {
 };
 let load;
 let intensity;
@@ -328,9 +344,9 @@ let upperBodySmallExercises = [
     new AccesoryExercise('Scapulae protraction and retraction while in push-up position', [3, 10], ['upperbody', 'scapulae'], ['isometric', 'bilateral'])
 ];
 let traversalAccesories = [
-    new AccesoryExercise('Farmer carry', [3, 10], ['legs', 'lowerbody', 'obliques', 'abdominals', 'arms'], ['traversal', 'bilateral', 'carry']),
-    new AccesoryExercise('Sled drag push', [3, 10]),
-    new AccesoryExercise('Sled drag pull', [3, 10]),
+    new AccesoryExercise('Farmer carry', [3, '1 min', 150], ['legs', 'lowerbody', 'obliques', 'abdominals', 'arms'], ['traversal', 'bilateral', 'carry']),
+    new AccesoryExercise('Sled drag push', [3, '1 min', 150], ['calves', 'tibialis', 'legs', 'lowerbody', 'arms'], ['traversal', 'bilateral']),
+    new AccesoryExercise('Sled drag pull', [3, '1 min', 150], ['calves', 'tibialis', 'legs', 'lowerbody', 'arms']),
 ];
 let plyometricLoad = [
     new AccesoryExercise('Jump vertical', [3, 10]),
@@ -369,7 +385,7 @@ let olympicWeightlifting = [
 ];
 const filter4Beginner = () => {
 };
-const randomPackLegsAsBasic = [playDice(lowerBodyUnilateral)[0], playDice(lowerBodyBilateral)[0], playDice(legsSmallExercises)[0]];
+const randomPackLegsAsBasic = [playDice(lowerBodyUnilateral)[0], playDice(lowerBodyBilateral)[0], playDice(traversalAccesories)[0]];
 const randomPackUpperBodyAndAbdomen = [playDice(pressBilateral)[0], playDice(abdomenAndLowerback)[0], playDice(armsHypetrophy)[0]];
 const randomPackUpperBodyChestAndArms = [playDice(pullExercisesBodyweight)[0], playDice(pullExercisesButMoreAccesible)[0], playDice(pushExercises)[0]];
 const basicOverload = (Squat, Bench, Deadlift) => {
@@ -397,6 +413,8 @@ const basicOverload = (Squat, Bench, Deadlift) => {
 };
 let z = basicOverload(100, 120, 130);
 console.log(z);
+const progressionOrRegressionOfExercise = () => {
+};
 const chooseWhichFirst = (overload, choice) => {
     if (choice === 'smoothParts') {
         return overload.splice(9);
@@ -406,27 +424,5 @@ const chooseWhichFirst = (overload, choice) => {
     }
     ;
     return;
-};
-let usedUnits = [];
-let currentUnit = [];
-const freeFallProgression = (load) => {
-    usedUnits.push(load[0]);
-    let shiftingArray = load.shift();
-    return shiftingArray;
-};
-let paidTwiceArray = [];
-let paidTwiceArray1 = [];
-let paidTwiceArray2 = [];
-const chooseFromVolume = (overload) => {
-    const highestVol = overload.filter((a) => {
-        return a + a;
-    });
-    return highestVol;
-};
-const chooseFromIntensity = (overload) => {
-    const highestInt = overload.filter((a) => {
-        return a.reps <= 5;
-    });
-    return highestInt;
 };
 //# sourceMappingURL=app.js.map
